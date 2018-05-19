@@ -1,0 +1,131 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+console.console{
+	position: fixed;
+    bottom: 0px;
+    width: 100%;
+	display: block;
+	text-align: left;
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+	-webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+          -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+               user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+	z-index: 999;
+}
+console.console .main{
+	width: 100%;
+    height: 100%;
+    background: #fff;
+	height: 200px;
+}
+console.console .main .header{
+	background: #f3f3f3;
+}
+console.console .main .header ul {
+	display: inline-flex;
+    list-style: none;
+}
+console.console .main .header ul li{
+	display: inline-flex;
+    list-style: none;
+}
+console.console .main .header ul li.active a{
+	border-bottom: 2px solid #4d8fe0;
+}
+console.console .main .header ul li a{
+	font-size: 12px;
+	cursor: pointer;
+	text-decoration: none;
+    padding: 5px 10px;
+	color: #383838;
+    padding: 5px 10px 7px;
+    border-bottom: 2px solid transparent;
+}
+console.console .main .header ul li a:hover{
+	background: #eaeaea;
+}
+.right{
+	float: right;
+}
+console.console .main .header ul li a i{
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+}
+console.console .main .body{
+	height: 100%;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+console.console .main .body ul li{
+	width: 100%;
+}
+console.console .main .body ul li a:hover{
+	background: #f9f6f6;
+}
+console.console .main .body ul li a{
+    font-size: 13px;
+	padding: 10px;
+	display: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+console.console .main .drag{
+	width: 100%;
+    height: 5px;
+	background: #e8e8e8;
+	cursor: n-resize;
+    overflow: hidden;
+}
+console.console .main .drag .icn{
+	width: 35px;
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    margin-left: -17.5px;
+    border-radius: 6px;
+    top: -2px;
+    text-align: center;
+}
+console.console .main .drag .icn i{
+	line-height: 9px;
+    color: #d4d4d4;
+}
+console.console .main .body .table{
+	display: none;
+    height: calc(100% - 34px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+console.console .main .body #log ul li{
+	font-size: 13px;
+    border-bottom: 1px solid #dedede;
+    padding: 5px 10px;
+}
+.buttonInstall:focus, .buttonInstall:active, .buttonUnistall:focus, .buttonUnistall:active{
+	box-shadow: 0px 0px 4px #4d8fe0;
+}
+console.console .main .body .buttonInstall{
+	padding: 4px 10px;
+    background: #4d8fe0;
+    color: #ffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+console.console .main .body .buttonUnistall{
+	padding: 4px 10px;
+    background: #e04d4d;
+    color: #ffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 11px;
+}

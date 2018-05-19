@@ -1,0 +1,50 @@
+//	SELECT QUERY
+Gaia::select('*','System', false, function($row){ 
+	echo $row[0][web_title]."<br>";
+});
+
+Gaia::select('*','Tickets', false,function($s){
+	foreach($s as $row){
+		echo $row[ticketTitle]."<br>";
+	}
+});
+
+//	INSERT QUERY
+Gaia::insert('Tickets','ticketTitle,ticketDesc', '?,?', ['titolo4', 'desc4'], function(){});
+
+
+//	UPDATE QUERY
+Gaia::update('Tickets','ticketTitle=?, ticketDesc=? where ticketID=?', ['titolo4pro', 'desc4ultra', 9], function(){});
+ 
+ 
+//	DELETE QUERY
+Gaia::deletequery('Tickets where ticketID=?', [10], function(){});
+
+
+// CREATE TABLE
+Gaia::table('test', function($table){
+	$table['autoIncrement']('id');
+	$table['string']('name', 120);
+	$table['string']('surname', 120);
+	$table['date']('date');
+	$table['enum']('type', ['1','0'], '1'); 
+})->engine('MyISAM', 'utf8')->ok();
+
+
+//ROUTERS
+
+Gaia::get('/', function(){
+	//view('test'); 
+	echo "home";
+});
+
+Gaia::get('/user', function(){
+	echo "user";
+});
+
+Gaia::get('/user/profile/{id}', function($set){
+	echo "profile id: " .$set->id;
+});
+Gaia::get('/user/{id}/edit', function(){
+	echo "{id} edit";
+});

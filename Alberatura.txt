@@ -1,0 +1,20 @@
+Gaia Framework
+-[Gaia_framework
+
+--[app
+---] 
+
+--[database
+---cahce]
+
+--[resources
+
+---[assets
+----js
+----sass]
+
+---lang
+---views
+---theme]
+
+-]

@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+	<IfModule mod_negotiation.c>
+		Options -MultiViews
+	</IfModule>
+
+	RewriteEngine On
+	RewriteBase /
+
+	# Handle Front Controller...
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+
+	RewriteCond %{REQUEST_SCHEME}://%{HTTP_HOST}%{REQUEST_URI}#$0 ^:?(.*)/(.*)#(\2)$
+
+	RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
+
+	RewriteRule ^(.*)$ index.php?route=$0&base_url=%1 [L,QSA]
+</IfModule> 
