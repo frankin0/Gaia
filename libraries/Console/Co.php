@@ -1,6 +1,7 @@
 <?php
 namespace Gaia\libraries\Console;
 
+
 class Co {
 	
 	public static function delete_files($dir) {

@@ -1,11 +1,11 @@
 <?php
+
 namespace Gaia\libraries\Console;
 use Gaia\core\classes\Router;
 use Gaia\libraries\Console\Co;
 
-//require_once '../../core/classes/Router.Class.php';
-//require_once 'Co.php';
-
+require_once '../../core/classes/Router.php';
+require_once 'Co.php';
 
 
 Router::post('/console/unistall/{id}', function($data){

@@ -24,9 +24,7 @@ use Gaia\core\controllers\Index;
  * https://espoweb.com
  *
  */
-class Bho{
 
-}
 
 class Router{
 

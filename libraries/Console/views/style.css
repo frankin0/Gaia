@@ -2,7 +2,9 @@
 	margin: 0;
 	padding: 0;
 }
+
 console.console{
+    font-family: 'Roboto Slab', serif !important;
 	position: fixed;
     bottom: 0px;
     width: 100%;
@@ -103,6 +105,7 @@ console.console .main .body .table{
     height: calc(100% - 34px);
     overflow-y: auto;
     overflow-x: hidden;
+    width: 100%;
 }
 console.console .main .body #log ul li{
 	font-size: 13px;

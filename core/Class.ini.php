@@ -32,7 +32,7 @@ return [
 	 *	Enabling this feature can lead to graphical changes in your site, please manually override the local attributes in the console.
 	 */
 	
-	'debug' => false,
+	'debug' => true,
 	
 	/*
 	 *	CHACHE SETTINGS
