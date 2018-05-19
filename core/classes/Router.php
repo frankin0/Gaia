@@ -30,7 +30,7 @@ class Bho{
 
 class Router{
 
-	public static function get($dir, $callback = array(), $require_ajax = false){
+	public static function get($dir = null, $callback = array(), $require_ajax = false){
 		return self::map(['GET'], $dir, $callback, $require_ajax);
 	}
 
@@ -60,37 +60,70 @@ class Router{
 
 	protected static function controller($route, $dir, $matches){
 		$fnc = "Show";
+		$array_variables = Array();
 		$ref; 
+		$err = 0;
+
 		if(isset($route)){ 
-			$dir_regex = preg_replace("/\{(.*?)\}/", "", $dir);
-			$ijas = preg_replace('#/+#', '/', $dir_regex);
-			$ijas = trim($ijas, "/");
-			$imp = explode("/", $ijas);
+			if(empty($dir)) {
+				$imp = explode("/", $route);
+			}else{
+
+				$dir_regex = preg_replace("/\{(.*?)\}/", "", $dir);
+				$ijas = preg_replace('#/+#', '/', $dir_regex);
+				$ijas = trim($ijas, "/");
+				$imp = explode("/", $ijas); 
+			}
 			foreach($imp as $key => $value){
 				if($key == 0){	//if key = 0 is mother container then 0 is a file
 					
 					if(!file_exists(getcwd().DIRECTORY_SEPARATOR."core\controllers".DIRECTORY_SEPARATOR.str_replace("\\", DIRECTORY_SEPARATOR, ($imp[0] ? $imp[0] : $route )).".php")){
 						Internal_error::warning(($imp[0] ? $imp[0] : $route ).".php");
+						$err = 1;
 					}else{	// Else file exists
 						$ref = new \ReflectionClass("Gaia\\core\\controllers\\". ($imp[0] ? $imp[0] : $route ));
 						$c = $ref->newInstance();
+						$err = 0;
 					}
 
 				}else{
-					$fnc = $imp[$key];
+					
+					$fnc = $imp[$key]; 
+					$array_variables[$key] = $value;					
+
 				}
 			}
 
-			if(!method_exists($c, $fnc)){
-				Internal_error::error("Method not found $fnc on ".get_class($c));
+			
+			$funcArray = Array();
+			$funcArray_c;
+
+			foreach($array_variables as $key => $val){
+				if($err == 1){
+					Internal_error::warning($route.".php");
+				}else{
+
+					if(method_exists($c, $val)){	//is function in class
+						$funcArray[$key] = $val;
+						$funcArray_c = $val;
+					}else{
+						if(property_exists($c, 'Index')){	//is variable in class
+							$c->Index['var'.$key] = $val;
+						}
+					}
+				}
 			}
 
-			return $c->{$fnc}($matches);
+			if($err == 0){
+				$c->Index = (object) @$c->Index;
+				
+				return $c->{(@$funcArray_c ? @$funcArray_c : $fnc)}($matches);
+			}
 		}
+		
 	}
 	
-	public static function map($methods, $dir, $callback, $require_ajax = false){
-
+	public static function map($methods, $dir = null, $callback, $require_ajax = false){
 		if(!in_array(strtoupper($_SERVER['REQUEST_METHOD']), $methods)){
 			return;
 		}
@@ -100,7 +133,7 @@ class Router{
 		}
 
 		if(empty($dir)){
-			$dir = "/";
+			$dir = "";
 		}
 
 		$dir_regex = preg_replace("/\{(.*?)\}/", "(?P<$1>[\w-]+)", $dir);
@@ -111,8 +144,8 @@ class Router{
 			preg_match($dir_regex, trim(@$_GET['route'], "/"), $matches);
 
 			$route_controller = isset($_GET["route"]) ? $_GET["route"] : "Index";
-			
-			if($matches){ 
+
+			if($matches || empty($dir)){ 
 				self::controller($route_controller, $dir, (object) $matches);
 				if(is_callable($callback)) call_user_func($callback, (object) $matches);
 				exit;

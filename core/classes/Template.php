@@ -6,7 +6,7 @@
 	use Gaia\libraries\Gaia_Templater\GaiaTemplate;
 
 	class Template extends Gaia{
-		
+
 		public static function view($viewFile, $viewVars = array()){
 			if(parent::$ini['gaia_temp']){
 				self::GaiaView($viewFile, $viewVars);
@@ -16,7 +16,7 @@
 		}
 		
 		public static function nativeView($viewFile, $viewVars = array()){
-			extract($viewVars);
+			//extract($viewVars);
 			$viewFileCheck = explode(".", $viewFile);
 			if(!isset($viewFileCheck[1])){
 				$viewFile .= ".php";
@@ -25,7 +25,6 @@
 			$viewFile = str_replace("::", "/", $viewFile);
 			$filename = parent::$ini['path']['app']."views/{$viewFile}";
 			if(file_exists($filename)){
-				print_r($viewVars);
 				require_once($filename);
 			}else{
 				internal_error::show(404);

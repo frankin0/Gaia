@@ -1,4 +1,5 @@
 <?php
+
 	use Gaia\core\classes\Template;
 ?>
 
@@ -6,9 +7,9 @@
 
 		<div class="container">
 
-			<h1>Gaia<span>V 1.2 Beta</span></h1>
+			<h1>Gaia<span>V <?=self::$ini['version']?> Beta</span></h1>
 
-			<h1>wishes you a good welcome!<?=$this->var?></h1>
+			<h1>wishes you a good welcome!</h1>
 
 			<ul>
 
@@ -18,7 +19,7 @@
 
 				<li><a href="https://espoweb.com" target="_blank">espoweb.com</a></li>
 
-				<li><p >&copy; 2017</p></li>
+				<li><p >&copy; 2017-2018</p></li>
 
 			</ul>
 

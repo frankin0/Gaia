@@ -9,5 +9,4 @@ use Gaia\core\classes\Internal_error;
 
 require_once __DIR__.'/core/contain.php';
 
-
-Router::get('/{p}');
+Router::get();
