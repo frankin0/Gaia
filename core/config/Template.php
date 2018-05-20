@@ -1,8 +1,8 @@
 <?php
 
-	namespace Gaia\core\classes;
+	namespace Gaia\core\config;
 	use Gaia\core\Gaia;
-	use Gaia\core\classes\internal_error;
+	use Gaia\core\config\internal_error;
 	use Gaia\libraries\Gaia_Templater\GaiaTemplate;
 
 	class Template extends Gaia{

@@ -1,6 +1,6 @@
 <?php
 
-	use Gaia\core\classes\Template;
+	use Gaia\core\config\Template;
 ?>
 
 	<?php Template::view("layout::header") ?>

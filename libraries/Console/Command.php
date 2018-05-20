@@ -1,10 +1,10 @@
 <?php
 
 namespace Gaia\libraries\Console;
-use Gaia\core\classes\Router;
+use Gaia\core\config\Router;
 use Gaia\libraries\Console\Co;
 
-require_once '../../core/classes/Router.php';
+require_once '../../core/config/Router.php';
 require_once 'Co.php';
 
 

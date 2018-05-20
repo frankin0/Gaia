@@ -1,7 +1,7 @@
 <?php
 
-namespace Gaia\core\classes;
-use Gaia\core\classes\Internal_error;
+namespace Gaia\core\config;
+use Gaia\core\config\Internal_error;
 use Gaia\core\controllers\Index;
 
 /*

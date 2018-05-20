@@ -1,6 +1,6 @@
 <?php
 namespace Gaia\libraries;
-use Gaia\core\classes\Template;
+use Gaia\core\config\Template;
 
 class GaiaTemplate extends Template{
 	

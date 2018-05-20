@@ -1,13 +1,13 @@
 <?php
 namespace Gaia\core;
 
-use Gaia\core\classes\Tools;
-use Gaia\core\classes\Router;
-use Gaia\core\classes\Internal_error;
-use Gaia\core\classes\Template;
+use Gaia\core\config\Tools;
+use Gaia\core\config\Router;
+use Gaia\core\config\Internal_error;
+use Gaia\core\config\Template;
 use Gaia\libraries\Gaia_Templater\GaiaTemplate;
 use Gaia\libraries\Console\ConsoleTool;
-use Gaia\core\classes\Table_call;
+use Gaia\core\config\Table_call;
 use Gaia\core\controllers;
 
 /*
@@ -37,7 +37,7 @@ class Gaia{
 	private static $instance = NULL;
 	
 	
-	private static $prfx;
+	public static $prfx;
 	
 	
 	public static $ini;
@@ -99,27 +99,27 @@ class Gaia{
 	public function __construct(){
 		error_reporting(E_ALL);
 		ini_set("display_errors", 1);
-		
+
 		if(!isset($_SESSION)) session_start();
 				
-		$classes = array(
+		$config = array(
 			'Tools.Class.php' => array(
-				'file_class' => 'core/classes/Tools.Class.php',
+				'file_class' => 'core/config/Tools.Class.php',
 				'instantiable' => false,
 				'isAutoloader' => true
 			),
 			'Router.Class.php' => array(
-				'file_class' => 'core/classes/Router.Class.php',
+				'file_class' => 'core/config/Router.Class.php',
 				'instantiable' => false,
 				'isAutoloader' => true
 			),
 			'Internal_error.Class.php' => array(
-				'file_class' => 'core/classes/Internal_error.Class.php',
+				'file_class' => 'core/config/Internal_error.Class.php',
 				'instantiable' => false,
 				'isAutoloader' => true
 			),
 			'Template.Class.php' => array(
-				'file_class' => 'core/classes/Template.Class.php',
+				'file_class' => 'core/config/Template.Class.php',
 				'instantiable' => false,
 				'isAutoloader' => true
 			),
@@ -134,7 +134,7 @@ class Gaia{
 				'isAutoloader' => true
 			),
 			'Table.Class.php' => array(
-				'file_class' => 'core/classes/Table.Class.php',
+				'file_class' => 'core/config/Table.Class.php',
 				'instantiable' => false,
 				'isAutoloader' => true
 			),
@@ -178,42 +178,15 @@ class Gaia{
 		if(self::$ini['debug']){
 			new ConsoleTool();
 		}
-		/*foreach($classes as $key => $class){
-			
-			
-			if(self::$ini['cache_enabled']){
-				$class_file = $class['file_class'];
-				$isAutoloader = $class['isAutoloader'];
-				$instantiable = $class['instantiable'];
-				
-				$cache_dir[$key] = array(
-					"instantiable" => $instantiable,
-					"isAutoloader" => $isAutoloader,
-					"file_class" => $class_file
-				);
-				file_put_contents($file_cache, serialize($cache_dir));
-			}
-			
-			if($class['isAutoloader']){
-				if(is_dir($class['file_class'])){
-					foreach(preg_grep('/^([^.])/', scandir('core/controllers/')) as $files) {
-						if(file_exists('core/controllers/'.$files)){
-							require_once('core/controllers/'.$files);
-						}
-					}
-				}else if(file_exists($class['file_class'])){
-					require_once($class['file_class']);
-				}
-			}
-			
-		}*/
+		
 		
 		
 	}
 	
 
 	public static function migration_ (){
-		
+		self::databaseConnection();
+
 		/*
 		 *	MIGRATION ARRAY FILE
 		 */
@@ -255,8 +228,38 @@ class Gaia{
 			}
 		}else if(self::$ini['migration']['migration_type'] == 'in'){
 			
-			
-			
+			//Search sql file in migration directory
+			if(file_exists("core/migrations/install.sql")){
+				
+				$update = "core/migrations/install.sql";
+				$qr= file_get_contents($update);
+				$qr= preg_replace( "'%PREFIX%'", self::$prfx, $qr );
+ 
+				try {
+					$stmt = self::$instance->exec($qr);
+				}
+				catch (PDOException $e)
+				{
+					echo $e->getMessage();
+					die();
+				}
+				
+
+			}else{
+				try {
+					$stmt = self::$instance->prepare('select * from '.self::$prfx.'system');
+					$stmt->execute();
+					if( $stmt->num_rows ==0 ){
+
+						$update = __ROOT__."core/migrations/1.sql";
+
+					}
+				
+				} catch (Exception $e) {
+					self::$instance = null;	
+					$callback("Oh noes! There's an error in the query: ". $e);
+				}
+			}
 		}else{
 			echo "Error <b>201</b>: Migration type unknown [ ".self::$ini['migration']['migration_type']." ] in [out or in]!";
 		}
@@ -308,187 +311,7 @@ class Gaia{
 	}
 	
 	
-	public static function table($name_t, callable  $callback){
-		self::databaseConnection();
-		try {
-			
-			$matches = array(
-				'string' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} VARCHAR({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'text' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} TEXT {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				}, 
-				'autoIncrement' => function($name, $str = 11, $pred = 'NOT NULL AUTO_INCREMENT', $primary_key = true){
-					if($primary_key == true){
-						$pk = "PRIMARY KEY"; 
-					}else{ $pk = ""; }
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} INT({$str}) {$pred} {$pk},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'integer' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} INT({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'datetime' => function($name, $str = '', $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} DATETIME {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'date' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} DATE {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'timestamp' => function($name, $pred = 'NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'){
-					if(!empty($name)){ self::$s .= "{$name} TIMESTAMP {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'time' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} TIME {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'year' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} YEAR(4) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'tinyInteger' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} TINYINT({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'smallInteger' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} SMALLINT({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'mediumInteger' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} MEDIUMINT({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'bigInteger' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} BIGINT({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'decimal' => function($name, $str = '10,0' ,$pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} DECIMAL({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'float' => function($name ,$pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} FLOAT {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'double' => function($name ,$pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} DOUBLE {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'bit' => function($name, $str = 11 ,$pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} BIT({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'tinyInteger' => function($name, $str = 11 ,$pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} TINYINT({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'bigInteger' => function($name, $str = 11 ,$pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} BIGINT({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'char' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} CHAR({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'tinytext' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} TINYTEXT {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'mediumText' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} MEDIUMTEXT {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'longText' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} LONGTEXT {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'binary' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} BINARY({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'varbinary' => function($name, $str = 11, $pred = 'NOT NULL'){
-					if(!empty($name) && !$str < 1){ self::$s .= "{$name} VARBINARY({$str}) {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'tinyblob' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} TINYBLOB {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'mediumblob' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} MEDIUMBLOB {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'blob' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} BLOB {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'longblob' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ self::$s .= "{$name} LONGBLOB {$pred},"; }else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'enum' => function($name, $enum = array(), $set = '', $pred = 'NOT NULL'){
-					if(!empty($enum) && !empty($name)){ 
-						$enum_ = "'".implode("','",$enum)."'";
-						if(empty($set)){ $set_ = ""; }else{ $set_ = "DEFAULT '{$set}'"; }
-						
-						self::$s .= "{$name} ENUM({$enum_}) {$pred} {$set_},";
-					}else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				},
-				'set' => function($name, $pred = 'NOT NULL'){
-					if(!empty($name)){ 
-						self::$s .= "{$name} SET {$pred},";
-					}else{ echo "Error <b>#200</b> attribute name not defined<br>"; }
-				}
-			);
-			
-			
-			$callback($matches);
-			
-			
-			
-			if(isset(self::$s)){
-				self::$name_query = $name_t;
-				return new self;
-			}
-			
-			//return $bgj;
-		} catch (Exception $e) {
-			self::$instance = null;	
-			return ("Oh noes! ". $e);
-		}
-	}	
-	
-	
-	public static function ok(){
-		
-		try{
-			
-			if(empty(self::$engine_1_)){
-				$engine_1 = 'MyISAM';
-			}else{
-				$engine_1 = self::$engine_1_;
-			}
-			
-			if(empty(self::$engine_2_)){
-				$engine_2 = 'utf8';
-			}else{
-				$engine_2 = self::$engine_2_;
-			}
-			
-			if(!empty(self::$s)){
-				self::$instance->exec("CREATE TABLE IF NOT EXISTS ".self::$prfx.self::$name_query."( ".trim(self::$s,',')." ) ENGINE={$engine_1} DEFAULT CHARSET={$engine_2};");
-				return "Dump Success!<br>";
-			}
-			
-			
-		} catch (Exception $e) {
-			self::$instance = null;	
-			echo ("Oh noes! There's an error in the query: ". $e);
-		}
-		
-	}
-	
-	public static function update($table_string, $values, $execute, callable $callback){
-		
-		if($execute == '' || $execute == null || $execute == [] || $execute == false){
-			$execute = [];
-		}
-		
-		try {
-			$stmt = self::$instance->prepare('update '.self::$prfx.$table_string.' set '.$values);
-			$stmt->execute($execute);
-		} catch (Exception $e) {
-			self::$instance = null;	
-			$callback("Oh noes! There's an error in the query: ". $e);
-		}
-	}
-	
-	public static function deletequery($table_string, $execute, callable $callback){
-		try {
-			$stmt = self::$instance->prepare('delete from '.self::$prfx.$table_string);
-			$stmt->execute($execute);
-		} catch (Exception $e) {
-			self::$instance = null;	
-			$callback("Oh noes! There's an error in the query: ". $e);
-		}
-	}
+
 	
 	public static function access_guest($userData = array()){		
 		$uid = $userData['oauth_uid'];

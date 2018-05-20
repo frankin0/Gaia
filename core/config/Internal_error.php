@@ -1,6 +1,6 @@
 <?php
 
-	namespace Gaia\core\classes;
+	namespace Gaia\core\config;
 
 
 	class Internal_error{
