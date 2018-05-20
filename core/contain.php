@@ -101,49 +101,6 @@ class Gaia{
 		ini_set("display_errors", 1);
 
 		if(!isset($_SESSION)) session_start();
-				
-		$config = array(
-			'Tools.Class.php' => array(
-				'file_class' => 'core/config/Tools.Class.php',
-				'instantiable' => false,
-				'isAutoloader' => true
-			),
-			'Router.Class.php' => array(
-				'file_class' => 'core/config/Router.Class.php',
-				'instantiable' => false,
-				'isAutoloader' => true
-			),
-			'Internal_error.Class.php' => array(
-				'file_class' => 'core/config/Internal_error.Class.php',
-				'instantiable' => false,
-				'isAutoloader' => true
-			),
-			'Template.Class.php' => array(
-				'file_class' => 'core/config/Template.Class.php',
-				'instantiable' => false,
-				'isAutoloader' => true
-			),
-			'Render.php' => array(
-				'file_class' => 'libraries/Gaia_Templater/Render.php',
-				'instantiable' => false,
-				'isAutoloader' => true
-			),
-			'Console.Class.php' => array(
-				'file_class' => 'libraries/Console/Console.Class.php',
-				'instantiable' => false,
-				'isAutoloader' => true
-			),
-			'Table.Class.php' => array(
-				'file_class' => 'core/config/Table.Class.php',
-				'instantiable' => false,
-				'isAutoloader' => true
-			),
-			'controllers' => array(
-				'file_class' => 'core/controllers/',
-				'instantiable' => true,
-				'isAutoloader' => true
-			)
-		);
 		
 		self::$ini = require_once(__DIR__.'/../core/Class.ini.php');
 		
@@ -174,9 +131,15 @@ class Gaia{
 			}
 		});
 
-			
-		if(self::$ini['debug']){
-			new ConsoleTool();
+		$ip = getenv('HTTP_CLIENT_IP')?:getenv('HTTP_X_FORWARDED_FOR')?:getenv('HTTP_X_FORWARDED')?:getenv('HTTP_FORWARDED_FOR')?:getenv('HTTP_FORWARDED')?:getenv('REMOTE_ADDR');
+		if(self::$ini['debug']['status']){
+			if(self::$ini['debug']['quick_ip']['status']) {
+				if(self::$ini['debug']['quick_ip']['myip'] == $ip){
+					new ConsoleTool();
+				}
+			}else{
+				new ConsoleTool();
+			}
 		}
 		
 		
@@ -227,89 +190,61 @@ class Gaia{
 				}
 			}
 		}else if(self::$ini['migration']['migration_type'] == 'in'){
-			
-			//Search sql file in migration directory
-			if(file_exists("core/migrations/install.sql")){
-				
-				$update = "core/migrations/install.sql";
-				$qr= file_get_contents($update);
-				$qr= preg_replace( "'%PREFIX%'", self::$prfx, $qr );
- 
-				try {
-					$stmt = self::$instance->exec($qr);
-				}
-				catch (PDOException $e)
-				{
-					echo $e->getMessage();
-					die();
-				}
-				
-
-			}else{
-				try {
-					$stmt = self::$instance->prepare('select * from '.self::$prfx.'system');
-					$stmt->execute();
-					if( $stmt->num_rows ==0 ){
-
-						$update = __ROOT__."core/migrations/1.sql";
-
+			if(self::$ini['migration']['status'] == true){
+				//Search sql file in migration directory
+				if(file_exists("core/migrations/install.sql")){
+					
+					$update = "core/migrations/install.sql";
+					$qr= file_get_contents($update);
+					$qr= preg_replace("'%PREFIX%'", self::$prfx, $qr );
+	
+					try {
+						$stmt = self::$instance->exec($qr);
+						$GLOBALS['log'] = array($qr, 'Dump ok.');
+						unlink($update);
 					}
-				
-				} catch (Exception $e) {
-					self::$instance = null;	
-					$callback("Oh noes! There's an error in the query: ". $e);
+					catch (PDOException $e)
+					{
+						$GLOBALS['log'] = array($qr, $e->getMessage());
+					}
+					
+
+				}else{
+					try {
+						$stmt = self::$instance->prepare('select * from '.self::$prfx.'system');
+						$stmt->execute();
+						$row = $stmt->fetch();
+						if( $row !=false ){
+							$update = "core/migrations/".$row['system_sql'].".sql";
+							if( !file_exists($update) ){
+								$GLOBALS['log'] = array("DB update '$update' doesn't exist!");
+								return;
+							}
+							$qr= file_get_contents($update);
+							$qr= preg_replace( "'%PREFIX%'", self::$prfx, $qr );
+
+							try {
+								$stmt = self::$instance->exec($qr);
+								$GLOBALS['log'] = array($qr, 'Dump ok.');
+							}
+							catch (PDOException $e)
+							{
+								$GLOBALS['log'] = array($qr, $e->getMessage());
+							}
+						}
+					
+					} catch (Exception $e) {
+						self::$instance = null;	
+						$callback("Oh noes! There's an error in the query: ". $e);
+						$GLOBALS['log'] = array("Oh noes! There's an error in the query: ". $e);
+					}
 				}
 			}
 		}else{
 			echo "Error <b>201</b>: Migration type unknown [ ".self::$ini['migration']['migration_type']." ] in [out or in]!";
+			$GLOBALS['log'] = array("Error <b>201</b>: Migration type unknown [ ".self::$ini['migration']['migration_type']." ] in [out or in]!");
 		}
 	}
-	
-	public static function select($table_select = '*',string $table_string, $execute, callable $callback){
-		
-		if($execute == '' || $execute == null || $execute == [] || $execute == false){
-			$execute = [];
-		}
-		
-		$array_group = [];
-		
-		try {
-			$stmt = self::$instance->prepare('select '.$table_select.' from '.self::$prfx.$table_string);
-			$stmt->execute($execute);
-			
-			foreach($stmt as $row) { $array_group[] = $row; }
-			
-			$callback($array_group);
-		
-		} catch (Exception $e) {
-			self::$instance = null;	
-			$callback("Oh noes! There's an error in the query: ". $e);
-		}
-	}
-	
-	public static function insert($table_string, $data, $values, $execute, callable $callback){
-		
-		if($execute == '' || $execute == null || $execute == [] || $execute == false){
-			$execute = [];
-		}
-		
-		try {
-			$stmt = self::$instance->prepare('insert into '.self::$prfx.$table_string.' ('.$data.') values('.$values.')');
-			$stmt->execute($execute);
-		} catch (Exception $e) {
-			self::$instance = null;	
-			$callback("Oh noes! There's an error in the query: ". $e);
-		}
-		
-	} 
-	
-	
-	public function engine($var, $var2 = 'utf8'){ 
-		self::$engine_1_ = $var;
-		self::$engine_2_ = $var2;
-		return new self;
-	}
-	
 	
 
 	

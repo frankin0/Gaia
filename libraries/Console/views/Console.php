@@ -20,6 +20,7 @@
 					<ul class="list-links">
 						<li class="active"><a href="#elements" class="links">Elements</a></li>
 						<li><a href="#log" class="links">Log</a></li>
+						<li><a href="#ini" class="links">Settings</a></li>
 						<li><a href="#informations" class="links">Informations</a></li>
 					</ul>
 					<ul class="right">
@@ -28,7 +29,7 @@
 					</ul>
 				</div>
 				<div class="body">
-					<div id="elements" class="table" style="display: block;">
+					<div id="elements" class="table"style="display: block;">
 						<ul>
 							<?php 
 							foreach(glob('libraries/*', GLOB_ONLYDIR) as $dir) {
@@ -49,7 +50,18 @@
 						</ul>
 					</div>
 					<div id="log" class="table">
-						<ul></ul>
+						<ul>
+							<?php 
+								foreach($GLOBALS['log'] as $key){
+									echo '<li>'.$key.'</li>';
+								}
+							?>
+						</ul>
+					</div>
+					<div id="ini" class="table" >
+						<ul> 
+							<li>Check the file Class.ini.php in <b>Gaia/core/</b> directory</li>
+						</lu>
 					</div>
 					<div id="informations" class="table">
 						<br><br>

@@ -1,0 +1,12 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+CREATE TABLE IF NOT EXISTS `gaia`.`%PREFIX%system` ( `system_name` VARCHAR(30) NOT NULL , `system_tmp` VARCHAR(15) NOT NULL , `system_sub_desc` TEXT NOT NULL , `system_close` ENUM('1', '0') NOT NULL DEFAULT '0' , `system_sql` SMALLINT(5) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `gaia`.`%PREFIX%system` (system_tmp, system_close, system_sql) VALUES ('', '0', 1);
+
+ALTER TABLE `gaia`.`%PREFIX%system`
+  ADD UNIQUE KEY `%PREFIX%system` (`system_sql`);
+COMMIT;

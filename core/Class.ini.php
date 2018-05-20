@@ -32,7 +32,13 @@ return [
 	 *	Enabling this feature can lead to graphical changes in your site, please manually override the local attributes in the console.
 	 */
 	
-	'debug' => true,
+	'debug' => array(
+		'status' => false,
+		'quick_ip' => array(	/* Enabled quick_status_ip true if do you want debug only on your ip address */
+			'status' => false,
+			'myip' => '::1'
+		)
+	),
 	
 	/*
 	 *	CHACHE SETTINGS
@@ -83,7 +89,7 @@ return [
 	 */
 	 
 	'migration' => [
-		'status' => false,
+		'status' => true,
 		'migration_type' => 'in', 	// Switch migration of type [out or ]
 		'automatic' => false,
 		//If migration is not automatic [ 'automatic' => false ], automatic migration includes all files into appropriate directory
