@@ -5,8 +5,10 @@
 
 	<?php Template::view("layout::header") ?>
 
-		<div class="container">
+		<div class="trasversalLine"></div>
 
+		<div class="container">
+		
 			<h1>Gaia<span>V <?=self::$ini['version']?> Beta</span></h1>
 
 			<h1>wishes you a good welcome!</h1>
@@ -22,7 +24,6 @@
 				<li><p >&copy; 2017-2018</p></li>
 
 			</ul>
-
 		</div>
 
 	<?php Template::view("layout::bottom") ?>

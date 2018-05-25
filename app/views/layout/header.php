@@ -13,6 +13,7 @@
 			body{
 				font-family: 'Roboto Slab', serif !important;
 				text-align: center;
+				overflow: hidden;
 			}
 			a{
 				text-decoration: none;
@@ -45,7 +46,18 @@
 			.container ul li {
 				display: inline-flex;
 			}
-			
+			.trasversalLine{
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				width: 139%;
+				height: 109%;
+				-webkit-transform: skewX(-18deg);
+				transform: skewX(-33deg);
+				background: #f9f9f9;
+				left: 45%;
+				z-index:-1;
+			}
 		</style>
 	</head>
 	<body>
