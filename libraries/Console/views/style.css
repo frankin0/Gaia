@@ -132,3 +132,16 @@ console.console .main .body .buttonUnistall{
     border-radius: 4px;
     font-size: 11px;
 }
+
+console.console .main .body .tb_fhsy{
+    padding: 10px;
+    font-size: 13px;
+}
+
+console.console .main .body .right{
+    float: right;
+}
+
+console.console .main .body h3{
+    font-weight: 300;
+}

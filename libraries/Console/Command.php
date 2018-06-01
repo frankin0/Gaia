@@ -4,6 +4,8 @@ namespace Gaia\libraries\Console;
 use Gaia\core\config\Router;
 use Gaia\libraries\Console\Co;
 
+
+
 require_once '../../core/config/Router.php';
 require_once 'Co.php';
 
@@ -25,3 +27,7 @@ Router::post('/console/install/{id}', function($data){
 		echo Co::copy_dir('../../libraries/'.$data->id, '../../app/views/'.$data->id);
 	}
 }, true);
+
+if(isset($_FILES['file'])){
+	echo Co::Upload($_FILES['file']);
+}

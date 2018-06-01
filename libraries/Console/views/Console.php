@@ -59,9 +59,18 @@
 						</ul>
 					</div>
 					<div id="ini" class="table" >
-						<ul> 
-							<li>Check the file Class.ini.php in <b>Gaia/core/</b> directory</li>
-						</lu>
+						<div class="tb_fhsy"> 
+							<p>Check the file Class.ini.php in <b>Gaia/core/</b> directory</p><br>
+							<h3 class="right">Update Plugin in Libraries</h3>
+							<div>
+								<label>
+									<form enctype="multipart/form-data" id="load_file_form" >
+										<input type="file" required name="file_plgs__" id="file_plgs__" accept='application/zip,application/rar' value="Load one rar file" />
+										<input type="submit" name="submit" value="Send" />
+									</form>
+								</label>
+							</div>
+						</div> 
 					</div>
 					<div id="informations" class="table">
 						<br><br>

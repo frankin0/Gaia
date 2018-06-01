@@ -5,10 +5,12 @@ use Gaia\core\config\Tools;
 use Gaia\core\config\Router;
 use Gaia\core\config\Internal_error;
 use Gaia\core\config\Template;
+use Gaia\core\config\Updater;
+use Gaia\core\config\Table_call;
 use Gaia\libraries\Gaia_Templater\GaiaTemplate;
 use Gaia\libraries\Console\ConsoleTool;
-use Gaia\core\config\Table_call;
 use Gaia\core\controllers;
+
 
 /*
  * How - The program that powers espoweb.com
@@ -131,14 +133,23 @@ class Gaia{
 			}
 		});
 
+
 		$ip = getenv('HTTP_CLIENT_IP')?:getenv('HTTP_X_FORWARDED_FOR')?:getenv('HTTP_X_FORWARDED')?:getenv('HTTP_FORWARDED_FOR')?:getenv('HTTP_FORWARDED')?:getenv('REMOTE_ADDR');
 		if(self::$ini['debug']['status']){
 			if(self::$ini['debug']['quick_ip']['status']) {
 				if(self::$ini['debug']['quick_ip']['myip'] == $ip){
 					new ConsoleTool();
+
+					if(self::$ini['debug']['updater']){
+						Updater::Start();
+					}
 				}
 			}else{
 				new ConsoleTool();
+
+				if(self::$ini['debug']['updater']){
+					Updater::Start();
+				}
 			}
 		}
 		

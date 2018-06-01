@@ -33,13 +33,16 @@ return [
 	 */
 	
 	'debug' => array(
-		'status' => false,
+		'status' => true,
 		'quick_ip' => array(	/* Enabled quick_status_ip true if do you want debug only on your ip address */
 			'status' => false,
 			'myip' => '::1'
-		)
+		),
+		/*	UPDATER FRAMEWORK */
+		'updater' => true
 	),
 	
+
 	/*
 	 *	CHACHE SETTINGS
 	 */
