@@ -81,6 +81,13 @@
 			
 			<script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
 			<script src="<?php echo cons_dir; ?>console.js"></script>
+			<script>
+				function scroolLog(){
+					$('#log').stop().animate({
+						scrollTop: $('#log')[0].scrollHeight
+					}, 800);
+				}
+			</script>
 		</body>
 	</html>
 </console>

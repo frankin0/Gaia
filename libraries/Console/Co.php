@@ -52,8 +52,10 @@ class Co {
 			if(move_uploaded_file($file['tmp_name'], './CookieApps/' . $file['name'])){
 				
 				echo "<li>Upload Successfully</li>";
+				echo "<script>scroolLog();</script>";
 		
 				echo "<li>In Preparation for the unpacking...</li>";
+				echo "<script>scroolLog();</script>";
 		
 				/**
 				 *  Unpacking zip rar
@@ -68,16 +70,39 @@ class Co {
 				if ($res === TRUE) {
 					if (!mkdir($folder_cryt, 0777, true)) {
 						echo '<li><font color="red">Failed to create folders...</font><li>';
+						echo "<script>scroolLog();</script>";
 					}
 					$zip->extractTo($folder_cryt);
 					$zip->close();
 				
 					echo "<li>File Unpacking Successfully!</li>";
+					echo "<script>scroolLog();</script>";
 
 					unlink("$file_name");
 
+					echo "<li>Copyng Directory!</li>";
+					echo "<script>scroolLog();</script>";
+
+					if(file_exists($folder_cryt."/config.php")){
+						require($folder_cryt."/config.php");
+					}
+
+					echo "<li>Plugin Copied!</li>";
+					echo "<script>scroolLog();</script>";
+
+					try {
+						self::delete_files($folder_cryt);
+					} catch (Exception $e) {
+						echo '<li><font color="red">Caught exception: '.$e->getMessage().'!</font><li>';
+						echo "<script>scroolLog();</script>";
+					}
+
+					echo "<li>Refresh in 5 Seconds!</li>";
+					echo "<script>scroolLog();</script>";
 					
-				}else echo '<li><font color="red">Errore nell\'apertura</font><li>';
+					echo '<meta http-equiv="refresh" content="5">';
+					
+				}else echo '<li><font color="red">Errore nell\'apertura</font><li>'; echo "<script>scroolLog();</script>";
 			}
 	
 		}
