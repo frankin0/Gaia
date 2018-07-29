@@ -51,7 +51,7 @@
 					</div>
 					<div id="log" class="table">
 						<ul>
-							<?php 
+							<?php
 								foreach($GLOBALS['log'] as $key){
 									echo '<li>'.$key.'</li>';
 								}

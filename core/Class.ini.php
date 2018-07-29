@@ -12,7 +12,7 @@ return [
 	 *	FRAMEWORK VERSION
 	 */
 	
-	'version' => '2.0.0',
+	'version' => '2.1.0',
 	
 	/*
 	 *	CLASS PATH
@@ -39,6 +39,7 @@ return [
 			'myip' => '::1'
 		),
 		/*	UPDATER FRAMEWORK */
+		/* COMING SOON */
 		'updater' => true
 	),
 	
@@ -60,6 +61,9 @@ return [
 	 */
 	
 	'url' => 'http://peewit.altervista.org/',
+	
+	'url_updater' => 'http://peewit.altervista.org/json/check.php',	/* Or Beta Version add after link ?rc_ */
+
 
 	/*
 	 *	APPLICATION TIMEZONE
