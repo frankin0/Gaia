@@ -112,10 +112,10 @@ console.console .main .body #log ul li{
     border-bottom: 1px solid #dedede;
     padding: 5px 10px;
 }
-.buttonInstall:focus, .buttonInstall:active, .buttonUnistall:focus, .buttonUnistall:active{
+.buttonInstall:focus, .buttonInstall:active, .buttonUnistall:focus, .buttonUnistall:active, .buttonUpdate:focus, .buttonUpdate:active{
 	box-shadow: 0px 0px 4px #4d8fe0;
 }
-console.console .main .body .buttonInstall{
+console.console .main .body .buttonInstall, console.console .main .body .buttonUpdate{
 	padding: 4px 10px;
     background: #4d8fe0;
     color: #ffff;
@@ -144,4 +144,10 @@ console.console .main .body .right{
 
 console.console .main .body h3{
     font-weight: 300;
+}
+
+console.console ul li a input[type="text"]{
+    border: 1px solid #e4e4e4;
+    padding: 5px 10px;
+    outline: none;
 }

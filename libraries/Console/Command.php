@@ -28,6 +28,15 @@ Router::post('/console/install/{id}', function($data){
 	}
 }, true);
 
+Router::post('/console/settings/update/{text}/id/{id}', function($data){
+	
+});
+
+if(isset($_POST['route'])){
+	$data = array("old_TX" => $_POST['old_TX'],"text" => $_POST['input_val'], "id" => $_POST['id']);
+	echo Co::Settings_Update($data);
+}
+
 if(isset($_FILES['file'])){
 	echo Co::Upload($_FILES['file']);
 }

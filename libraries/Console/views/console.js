@@ -117,6 +117,45 @@ $(document).ready(function(){
 			});
 	});
 
+	$('.list_stgs li a').on('click', function(e){
+
+		$(this).children().children("input").focus();
+	});
+
+	
+	$('.buttonUpdate').on('click', function(e){ 
+		e.preventDefault();
+
+		var input_val = $(this).parent().children("input").val();
+		var input_id = $(this).parent().children("button").data("key");
+		var old_TX = $(this).parent().children("input").data("oldtx");
+		var hError = false;
+
+		if(input_val == '' || input_val == undefined){
+			hError = true;
+			$('#log ul').html('<li><font color="red"><b>Error Update</b>: Error irreversible!</font></li>');
+		}
+
+		if(hError == false){
+			$.ajax({
+				type: "POST",
+				url: "libraries/Console/Command.php",
+				data: "route=console/settings/update/&input_val=" + input_val + "&id=" + input_id + "&old_TX=" + old_TX,
+				dataType: "html",
+				beforeSend: function(){
+					//$('.listPrj').html('<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
+				},
+				success: function(msg){
+					console.log(msg);
+				},
+				error: function(){
+					$('#log ul').html('<li><font color="red"><b>Error Update</b>: Connection error to Unistall ' + name + '</font></li>');
+				}
+			});
+		}
+		
+	});
+
 	$('#load_file_form').on('submit', function(e){
 		e.preventDefault();
 		var file_data = $('#file_plgs__').prop('files')[0];   

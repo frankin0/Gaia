@@ -6,7 +6,7 @@ return [
 	 *	APPLICATION NAME
 	 */
 	
-	'name' => '',
+	'name' => 'a',
 	
 	/*
 	 *	FRAMEWORK VERSION
@@ -40,7 +40,7 @@ return [
 		),
 		/*	UPDATER FRAMEWORK */
 		/* COMING SOON */
-		'updater' => true
+		'updater' => false
 	),
 	
 
