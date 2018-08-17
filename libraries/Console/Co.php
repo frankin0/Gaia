@@ -112,16 +112,22 @@ class Co {
 
 	public static function Settings_Update($data){
 		$data_old_tx = $data['old_TX'];
-
+		$data_id = $data['id'];
+		//config.ini.cookie.file.php
 
 		$path_to_file = __DIR__.'/../../core/Class.ini.php';
-		$file_contents = file_get_contents($path_to_file);
+		$path_to_cookie_ini_file = "CookieApps/config.ini.cookie.file.php";
+
+		$file_contents = file_get_contents($path_to_cookie_ini_file);
 		$startPos = strpos($file_contents, $data['id']);
 		$subStr = substr($file_contents, $startPos);
-		$subStrUpdated = preg_replace("/{$data_old_tx}/i", $data['text'], $subStr, 1);
+		$subStrUpdated = preg_replace("'".$data_id."'", $data['text'], $subStr, 1);
 		$file_contents = str_replace($subStr, $subStrUpdated, $file_contents);
 		//file_put_contents($path_to_file,$file_contents);
 		echo "Coming Soon";
+
+		//echo $file_contents;
+		//print_r($data);
 	}
 
 }

@@ -1,4 +1,16 @@
 <?php
+###############################  S  T  A  R  T   ################################
+##              -= YOU MAY NOT REMOVE OR CHANGE THIS NOTICE =-                 ##
+## --------------------------------------------------------------------------- ##
+##  Filename       Class.ini.php                                               ##
+##  Version        1.5                                                         ##
+##  Developed by:  Francesco Esposito espoweb.com - francescoe15@gmail.com     ##
+##  Rework by:     www.espoweb.com                                             ##
+##  License:       Gaia Framework                                              ##
+##  Copyright:     Gaia (c) 2017-2018. All rights reserved.                    ##
+##                                                                             ##
+#################################################################################
+
 
 return [
 	 

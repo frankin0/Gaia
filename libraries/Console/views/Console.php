@@ -68,14 +68,14 @@
 										foreach($value as $key2 => $value2) {
 											if(is_array($value2)){
 												foreach($value2 as $key3 => $value3) {
-													echo '<li style="display: flow-root;line-height: 25px;"><a style="padding-left: 40px;">['.$key.']['.$key2.']>'.$key3.' <span class="right"><input type="text" data-oldTX="'.$value3.'" class="inp_val" id="'.$key3.'" value="'.$value3.'"></input><button data-key="'.$key3.'" class="buttonUpdate">Update</button></span></a></li>';
+													echo '<li style="display: flow-root;line-height: 25px;"><a style="padding-left: 40px;">['.$key.']['.$key2.']>'.$key3.' <span class="right"><input type="text" data-oldTX="'.$value3.'" class="inp_val" id="%'.strtoupper($key3).'%" value="'.$value3.'"></input><button data-key="%'.strtoupper($key3).'%" class="buttonUpdate">Update</button></span></a></li>';
 												}
 											}else{
-												echo '<li style="display: flow-root;line-height: 25px;"><a style="padding-left: 20px;">['.$key.']>'.$key2.' <span class="right"><input type="text" class="inp_val" data-oldTX="'.$value2.'" id="'.$key2.'" value="'.$value2.'"></input><button data-key="'.$key2.'" class="buttonUpdate">Update</button></span></a></li>';
+												echo '<li style="display: flow-root;line-height: 25px;"><a style="padding-left: 20px;">['.$key.']>'.$key2.' <span class="right"><input type="text" class="inp_val" data-oldTX="'.$value2.'" id="%'.strtoupper($key2).'%" value="'.$value2.'"></input><button data-key="%'.strtoupper($key2).'%" class="buttonUpdate">Update</button></span></a></li>';
 											}
 										}
 									}else{
-										echo '<li style="display: flow-root;line-height: 25px;"><a>>'.$key.' <span class="right"><input type="text" class="inp_val" id="'.$key.'" data-oldTX="'.$value.'" value="'.$value.'"></input><button data-key="'.$key.'" class="buttonUpdate">Update</button></span></a></li>';
+										echo '<li style="display: flow-root;line-height: 25px;"><a>>'.$key.' <span class="right"><input type="text" class="inp_val" id=%'.strtoupper($key).'%" data-oldTX="'.$value.'" value="'.$value.'"></input><button data-key="%'.strtoupper($key).'%" class="buttonUpdate">Update</button></span></a></li>';
 									}
 								}	
 								?>
