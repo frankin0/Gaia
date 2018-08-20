@@ -156,6 +156,10 @@ class Gaia{
 		
 		
 	}
+
+	public static function installation(){
+		
+	}
 	
 
 	public static function migration_ (){
