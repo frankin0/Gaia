@@ -1,0 +1,18 @@
+[21-Aug-2018 20:00:28 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'gaia_' in C:\xampp\htdocs\core\contain.php:75
+Stack trace:
+#0 C:\xampp\htdocs\core\contain.php(75): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 C:\xampp\htdocs\core\contain.php(168): Gaia\core\Gaia::databaseConnection()
+#2 C:\xampp\htdocs\core\contain.php(116): Gaia\core\Gaia::migration_()
+#3 C:\xampp\htdocs\core\contain.php(442): Gaia\core\Gaia->__construct()
+#4 C:\xampp\htdocs\index.php(10): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\core\contain.php on line 75
+[21-Aug-2018 20:03:14 Europe/Rome] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'gaia_' in C:\xampp\htdocs\core\contain.php:75
+Stack trace:
+#0 C:\xampp\htdocs\core\contain.php(75): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 C:\xampp\htdocs\core\contain.php(173): Gaia\core\Gaia::databaseConnection()
+#2 C:\xampp\htdocs\core\contain.php(121): Gaia\core\Gaia::migration_()
+#3 C:\xampp\htdocs\core\contain.php(447): Gaia\core\Gaia->__construct()
+#4 C:\xampp\htdocs\index.php(10): require_once('C:\\xampp\\htdocs...')
+#5 {main}
+  thrown in C:\xampp\htdocs\core\contain.php on line 75

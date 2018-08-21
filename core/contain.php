@@ -74,6 +74,7 @@ class Gaia{
 				try{
 					self::$instance = new \PDO("mysql:host=".self::$ini['connections']['mysql']['host'].";dbname=".self::$ini['connections']['mysql']['database'], self::$ini['connections']['mysql']['username'], self::$ini['connections']['mysql']['password'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '".self::$ini['connections']['mysql']['charset']."'"));
 					self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
 				} catch(PDOException $e) {
 					echo 'ERROR: ' . $e->getMessage();
 				}
@@ -97,11 +98,10 @@ class Gaia{
 		}
 		
 	}
-	
-	public function __construct(){
-		error_reporting(E_ALL);
-		ini_set("display_errors", 1);
 
+
+	public function __construct(){
+		
 		if(!isset($_SESSION)) session_start();
 		
 		self::$ini = require_once(__DIR__.'/../core/Class.ini.php');
@@ -154,6 +154,15 @@ class Gaia{
 		}
 		
 		
+		error_reporting(E_ALL ^ E_STRICT);
+		if(self::$ini['display_errors'] == false){
+			ini_set("display_errors", 0);
+			ini_set("error_log", self::$ini['path']['dir']."core/php-error.log");
+		}else{
+			ini_set('display_errors', 1);
+			set_error_handler('Gaia\core\config\Internal_error::ErrorHandler',E_ALL|E_STRICT);
+
+		}
 		
 	}
 

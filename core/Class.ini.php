@@ -45,7 +45,7 @@ return [
 	 */
 	
 	'debug' => array(
-		'status' => true,
+		'status' => false,
 		'quick_ip' => array(	/* Enabled quick_status_ip true if do you want debug only on your ip address */
 			'status' => false,
 			'myip' => '::1'
@@ -62,6 +62,11 @@ return [
 	
 	'cache_enabled' => false,
 	
+	/**
+	 * DISPLAY ERROR
+	 */
+	'display_errors' => true,
+
 	/*
 	 *	TEMPLATER TYPE
 	 */
