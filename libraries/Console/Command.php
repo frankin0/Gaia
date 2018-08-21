@@ -18,6 +18,7 @@ Router::post('/console/unistall/{id}', function($data){
 		echo "<li>Uninstall process, removing all files and database table... ...</li>";
 		echo Co::delete_files('../../app/views/'.$data->id.'/');
 	}
+	exit();
 }, true);
 
 Router::post('/console/install/{id}', function($data){
@@ -26,17 +27,21 @@ Router::post('/console/install/{id}', function($data){
 		
 		echo Co::copy_dir('../../libraries/'.$data->id, '../../app/views/'.$data->id);
 	}
+	exit();
 }, true);
 
-Router::post('/console/settings/update/{text}/id/{id}', function($data){
-	
-});
+Router::post('/console/terminal/versionFrm', function($data){
+	echo json_encode(array('terminal_version'=> '2.0', 'framework_version'=> '1', 'current_framework_version' => '2'));
+	exit();
+}, true);
 
 if(isset($_POST['route'])){
 	$data = array("old_TX" => $_POST['old_TX'],"text" => $_POST['input_val'], "id" => $_POST['id']);
 	echo Co::Settings_Update($data);
+	exit();
 }
 
 if(isset($_FILES['file'])){
 	echo Co::Upload($_FILES['file']);
+	exit();
 }

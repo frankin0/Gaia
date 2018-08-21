@@ -21,6 +21,7 @@
 						<li class="active"><a href="#elements" class="links">Elements</a></li>
 						<li><a href="#log" class="links">Log</a></li>
 						<li><a href="#ini" class="links">Settings</a></li>
+						<li><a href="#terminal" class="links">Terminal</a></li>
 						<li><a href="#informations" class="links">Informations</a></li>
 					</ul>
 					<ul class="right">
@@ -94,13 +95,21 @@
 					</div>
 					<div id="informations" class="table">
 						<br><br>
-						<center><h3>Gaia Console V.1.0</h3><br><p>Latest Version</p></center>
+						<center><h3>Gaia Console V.2.0</h3><br><p>Latest Version</p></center>
+					</div>
+					<div id="terminal" class="table terminal">
+						<div class="terminal-output"></div>
+						<div class="terminal-input">
+							<span class="terminal-stp">Gaia@localhost:~$ <span class="text-writing"></span><span class="terminal-cursor"></span></span>
+							<textarea class="input-terminal"></textarea>
+						</div>
 					</div>
 				</div>
 			</div>
 			
 			<script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
 			<script src="<?php echo cons_dir; ?>console.js"></script>
+			<script src="<?php echo cons_dir; ?>terminal.js"></script>
 			<script>
 				function scroolLog(){
 					$('#log').stop().animate({

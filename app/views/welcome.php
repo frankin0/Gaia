@@ -15,7 +15,7 @@
 
 			<ul>
 
-				<li><a href="https://www.facebook.com/espoweb/" target="_blank">Facebook</a></li>
+				<li><a href="https://www.facebook.com/espowebcom/" target="_blank">Facebook</a></li>
 
 				<li><a href="https://github.com/frankin0/Gaia">GitHub</a></li>
 

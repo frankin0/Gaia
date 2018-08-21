@@ -151,3 +151,63 @@ console.console ul li a input[type="text"]{
     padding: 5px 10px;
     outline: none;
 }
+console.console .table.terminal{
+    background: rgb(34, 34, 34);;
+    caret-color: transparent;
+    display: block;
+    font-family: "courier new", monospace;
+    font-size: 13px;
+    font-variant-ligatures: none;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    outline: none !important;
+    color: rgb(255, 255, 255);
+}
+
+console.console .table.terminal .terminal-input{
+    display: flex;
+    caret-color: transparent;
+    font-family: "courier new", monospace;
+    font-size: 13px;
+    font-variant-ligatures: none;
+    white-space: pre;
+    color: rgb(255, 255, 255);
+}
+console.console .table.terminal .terminal-input span{
+    
+}
+.terminal-output{
+display: grid;
+}
+console.console .table.terminal .terminal-input .terminal-cursor{
+    padding: 1px 3.5px;
+    margin-left: 1px;
+    border: 1px solid rgba(255, 0, 0, 0.5);;
+}
+console.console .table.terminal .terminal-input .terminal-cursor.active-anim{
+    background: rgba(255, 0, 0, 0.5);
+    border: 1px solid transparent;
+
+	/*-webkit-animation: flashing linear .5s infinite;
+    animation: flashing linear .5s infinite;*/
+}
+console.console .table.terminal .terminal-input textarea{
+    opacity: 0;
+    position: absolute;
+    bottom:0px;
+    right: 0px;
+    width: 1px;
+    height: 1px;
+}
+
+@-webkit-keyframes flashing {
+	0% { opacity: 0; } 
+	50% { opacity: .5; } 
+	100% { opacity: 1; }
+}
+@keyframes flashing {
+	0% { opacity: 0; } 
+	50% { opacity: .5; } 
+	100% { opacity: 1; }
+}
