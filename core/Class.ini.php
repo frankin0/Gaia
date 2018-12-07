@@ -18,13 +18,13 @@ return [
 	 *	APPLICATION NAME
 	 */
 	
-	'name' => 'a',
+	'name' => 'Gaia Framework',
 	
 	/*
 	 *	FRAMEWORK VERSION
 	 */
 	
-	'version' => '2.1.0',
+	'version' => '2.5.0',
 	
 	/*
 	 *	CLASS PATH
@@ -48,7 +48,7 @@ return [
 		'status' => false,
 		'quick_ip' => array(	/* Enabled quick_status_ip true if do you want debug only on your ip address */
 			'status' => false,
-			'myip' => '::1'
+			'myip' => ''
 		),
 		/*	UPDATER FRAMEWORK */
 		/* COMING SOON */
@@ -91,6 +91,7 @@ return [
 	'date_default_timezone_set' => 'Europe/Rome',
 	
 	'set_local_lc_time' => 'it_IT',
+	
 	/*
 	 *	APPLICATION LOCAL LANGUAGE
 	 */
@@ -107,7 +108,7 @@ return [
 	 *	DEFAULT LOCAL LANGUAGE
 	 */
 	 
-	'defaultlang' => 'en',
+	'defaultlang' => 'it',
 	
 	/*
 	 *	MIGRATION DATA
@@ -115,7 +116,7 @@ return [
 	 
 	'migration' => [
 		'status' => true,
-		'migration_type' => 'in', 	// Switch migration of type [out or ]
+		'migration_type' => 'in', 	// Switch migration of type [out or in]
 		'automatic' => false,
 		//If migration is not automatic [ 'automatic' => false ], automatic migration includes all files into appropriate directory
 	],
@@ -137,8 +138,8 @@ return [
 		'mysql' => [
 			'driver' => 'mysql',
 			'host' => 'localhost',
-			'database' => 'gaia',
-			'username' => 'root',
+			'database' => '',
+			'username' => '',
 			'password' => '',
 			'charset' => 'utf8',
 			'collation' => 'utf8mb4_unicode_ci',

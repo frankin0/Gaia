@@ -25,7 +25,12 @@ Router::post('/console/install/{id}', function($data){
 	if($data->id != 'Console'){
 		echo "<li>Installation process..</li>";
 		
-		echo Co::copy_dir('../../libraries/'.$data->id, '../../app/views/'.$data->id);
+		$arrDt = require_once('../../libraries/'.$data->id.'/install.php');
+
+		foreach($arrDt as $key => $value){
+			echo "<li>Opening Dir ".$key."</li>";
+			echo Co::copy_dir('../../libraries/'.$data->id.'/'.$key, '../../' . $value);
+		}
 	}
 	exit();
 }, true);

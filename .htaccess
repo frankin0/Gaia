@@ -4,6 +4,11 @@
 	</IfModule>
 
 	RewriteEngine On
+	
+	# no one gets in here!
+	RedirectMatch 301 /core(.*) http://www.promo-to.it/v2/$1
+	RedirectMatch 301 /libraries(.*) http://www.promo-to.it/v2/$1
+	
 	RewriteBase /
 
 	# Handle Front Controller...
@@ -14,5 +19,9 @@
 
 	RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
 
-	RewriteRule ^(.*)$ index.php?route=$0&base_url=%1 [L,QSA]
+	#RewriteRule ^(.*)$ v2/index.php?route=$0&base_url=%1 [L,QSA]
+    RewriteRule ^(.*)$ v2/index.php?/$1 [L] 
+	
+	
+	
 </IfModule> 

@@ -173,7 +173,7 @@ class Gaia{
         
         //FetchAllQueue
         if(AuthClass::Instance()->getUser() != null){
-            UserClass::UserDevicesConnected($_SESSION["user_loged"]);
+            
         }
 		
 		SystemClass::queue(1);
