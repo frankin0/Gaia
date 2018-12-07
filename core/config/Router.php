@@ -72,9 +72,11 @@ class Router{
 				$ijas = trim($ijas, "/");
 				$imp = explode("/", $ijas); 
 			}
+			
+			
 			foreach($imp as $key => $value){
 				if($key == 0){	//if key = 0 is mother container then 0 is a file
-					
+
 					if(!file_exists(getcwd().DIRECTORY_SEPARATOR."core/controllers".DIRECTORY_SEPARATOR.str_replace("\\", DIRECTORY_SEPARATOR, ($imp[0] ? $imp[0] : $route )).".php")){
 						Internal_error::warning(($imp[0] ? $imp[0] : $route ).".php");
 						$err = 1;
@@ -170,6 +172,16 @@ class Router{
 
 		}
 
-	}
+    }
+    
+    public static function keymap(){
+        $key = array();
+
+        $route = $_GET['route'];
+
+        $key = explode('/', $route);
+
+        return $key;
+    }
 
 }

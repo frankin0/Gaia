@@ -15,8 +15,8 @@
 			echo "<pre><b>Warning: </b>file({$file}): failed to open stream: No such file or directory in core/controllers/{$file} </pre>";
 		}
 
-		public static function error($type){
-			echo "<pre><b>Error: </b> {$type} </pre>";
+		public static function error($text, $type = "F5"){
+			echo "<pre><b>Error {$type}: </b> {$text} </pre>";
 		}
 
 		public static function ErrorHandler($errno, $errstr, $errfile, $errline){

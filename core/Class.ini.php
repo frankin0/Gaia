@@ -90,6 +90,7 @@ return [
 	
 	'date_default_timezone_set' => 'Europe/Rome',
 	
+	'set_local_lc_time' => 'it_IT',
 	/*
 	 *	APPLICATION LOCAL LANGUAGE
 	 */

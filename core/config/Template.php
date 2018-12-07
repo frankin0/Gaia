@@ -2,10 +2,12 @@
 
 	namespace Gaia\core\config;
 	use Gaia\core\Gaia;
-	use Gaia\core\config\internal_error;
+	use Gaia\core\config\Internal_error;
 	use Gaia\libraries\Gaia_Templater\GaiaTemplate;
 
-	class Template extends Gaia{
+abstract class Template extends Gaia{
+
+        public static $ShowData = array();
 
 		public static function view($viewFile, $viewVars = array()){
 			if(parent::$ini['gaia_temp']){

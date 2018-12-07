@@ -2,7 +2,8 @@
 namespace Gaia\core;
 
 use Gaia\core\config\Tools;
-use Gaia\core\config\Router;
+use Gaia\core\config\Route_Beta;
+#use Gaia\core\config\Router;
 use Gaia\core\config\Internal_error;
 use Gaia\core\config\Template;
 use Gaia\core\config\Updater;
@@ -10,6 +11,9 @@ use Gaia\core\config\Table_call;
 use Gaia\libraries\Gaia_Templater\GaiaTemplate;
 use Gaia\libraries\Console\ConsoleTool;
 use Gaia\core\controllers;
+use Gaia\core\classes\UserClass;
+use Gaia\core\classes\AuthClass;
+use Gaia\core\classes\SystemClass;
 
 
 /*
@@ -36,7 +40,7 @@ use Gaia\core\controllers;
  
 class Gaia{
 	
-	private static $instance = NULL;
+	protected static $instance = NULL;
 	
 	
 	public static $prfx;
@@ -103,10 +107,11 @@ class Gaia{
 	public function __construct(){
 		
 		if(!isset($_SESSION)) session_start();
-		
-		self::$ini = require_once(__DIR__.'/../core/Class.ini.php');
-		
-		@date_default_timezone_set(self::$ini['date_default_timezone_set']);
+
+        self::$ini = require_once(getcwd().DIRECTORY_SEPARATOR.'core/Class.ini.php');
+
+        @date_default_timezone_set(self::$ini['date_default_timezone_set']);
+		setlocale(LC_TIME, self::$ini['set_local_lc_time']);
 		
 		$file_cache = self::$ini['path']['cache']."classloc.cache";
 		
@@ -121,15 +126,17 @@ class Gaia{
 		spl_autoload_register(function($class){
 			if(class_exists($class, false)){
 				return;
-			}
-
+            }
+            
 			$class = str_replace("Gaia\\", "", $class);
 			$fileClass = classPath.str_replace("\\", DIRECTORY_SEPARATOR, $class).".php";
-
-			if(file_exists($fileClass)){
+		
+			if(file_exists($fileClass)){ 
 				require_once($fileClass);
 			}else{
-				echo "Error: can't load <b>$class</b> file: <i>$fileClass</i> <br>";
+				if(self::$ini['display_errors'] != false){
+					echo "Error: can't load <b>$class</b> in file: <i>$fileClass</i> <br>";
+				}
 			}
 		});
 
@@ -160,18 +167,20 @@ class Gaia{
 			ini_set("error_log", self::$ini['path']['dir']."core/php-error.log");
 		}else{
 			ini_set('display_errors', 1);
-			set_error_handler('Gaia\core\config\Internal_error::ErrorHandler',E_ALL|E_STRICT);
+			//set_error_handler('Gaia\core\config\Internal_error::ErrorHandler',E_ALL|E_STRICT);
 
-		}
+        }
+        
+        //FetchAllQueue
+        if(AuthClass::Instance()->getUser() != null){
+            UserClass::UserDevicesConnected($_SESSION["user_loged"]);
+        }
+		
+		SystemClass::queue(1);
 		
 	}
 
-	public static function installation(){
-		
-	}
-	
-
-	public static function migration_ (){
+	public static function migration_(){
 		self::databaseConnection();
 
 		/*
@@ -212,9 +221,9 @@ class Gaia{
 					}
 					
 				}
-			}
-		}else if(self::$ini['migration']['migration_type'] == 'in'){
-			if(self::$ini['migration']['status'] == true){
+			} 
+		}else if(self::$ini['migration']['migration_type'] == 'in'){ 
+			if(self::$ini['migration']['status'] == true){ 
 				//Search sql file in migration directory
 				if(file_exists("core/migrations/install.sql")){
 					
@@ -267,100 +276,10 @@ class Gaia{
 		}else{
 			echo "Error <b>201</b>: Migration type unknown [ ".self::$ini['migration']['migration_type']." ] in [out or in]!";
 			$GLOBALS['log'] = array("Error <b>201</b>: Migration type unknown [ ".self::$ini['migration']['migration_type']." ] in [out or in]!");
-		}
+        }
+        
 	}
 	
-
-	
-	public static function access_guest($userData = array()){		
-		$uid = $userData['oauth_uid'];
-		$oauth_provider = $userData['oauth_provider'];
-		$email = $userData['email'];
-		$username = $userData['username'];
-		
-		if($oauth_provider == 'facebook'){
-			$check = self::$instance->prepare('select * from `'.self::$db_pefix.'Users` WHERE oauth_uid=:uid and oauth_provider=:oauth_provider');
-			$check->execute(array('uid' => $uid, 'oauth_provider' => $oauth_provider));
-			$row = $check->fetch();
-			if($row != false){ 
-				# User is already present
-				session_start();
-				$_SESSION['user_loged'] = $row['userID'];
-				$_SESSION['oauth_id'] = $uid;
-				$_SESSION['username'] = $row['userName'];
-				$_SESSION['email'] = $email;
-				$_SESSION['oauth_provider'] = $oauth_provider;
-				echo '<meta http-equiv="refresh" content="0;URL=\'./\'" />';
-			} else { 
-				#user not present. Insert a new Record				
-				$stmt = self::$instance->prepare('insert into '.self::$db_pefix.'Users(oauth_provider, oauth_uid, userName, userEmail, userIP, userDataReg, userDataLastLogin, userStat) values (:oauth_provider, :uid, :username, :email, :ip, :datareg, :datalastlogin, :status) ');
-				$stmt->execute(array('oauth_provider' => $oauth_provider, 'uid' => $uid, 'username' => $username,'email' => $email, 'ip' => $_SERVER['REMOTE_ADDR'], 'datareg' => date("Y-m-d H:i:s"), 'datalastlogin' => '0000-00-00 00:00:00' ,'status' => 1));
-				$id_user_Reg = self::$instance->lastInsertId();
-				
-				$stmt2 = self::$instance->prepare('insert into '.self::$db_pefix.'UsersPersonal(UserID, UserPIVA,UserRealName, UserRealSurname) values (:uid, :p_iva, :name, :surname) ');
-				$stmt2->execute(array('uid' => $id_user_Reg,'p_iva' => '', 'name' => $userData['first_name'], 'surname' => $userData['last_name']));
-				
-				session_start();
-				$_SESSION['user_loged'] = $id_user_Reg;
-				$_SESSION['oauth_id'] = $uid;
-				$_SESSION['username'] = $username;
-				$_SESSION['email'] = $email;
-				$_SESSION['oauth_provider'] = $oauth_provider;
-				
-				echo '<meta http-equiv="refresh" content="0;URL=\'./\'" />';
-			}
-		}else if($oauth_provider == 'google'){
-			$check = self::$instance->prepare('select * from `'.self::$db_pefix.'Users` WHERE oauth_uid=:uid and oauth_provider=:oauth_provider');
-			$check->execute(array('uid' => $uid, 'oauth_provider' => $oauth_provider));
-			$row = $check->fetch();
-			if($row != false){ 
-				# User is already present
-				session_start();
-				$_SESSION['user_loged'] = $row['userID'];
-				$_SESSION['oauth_id'] = $uid;
-				$_SESSION['username'] = $row['userName'];
-				$_SESSION['email'] = $email;
-				$_SESSION['oauth_provider'] = $oauth_provider;
-				echo '<meta http-equiv="refresh" content="0;URL=\'./\'" />';
-			} else { 
-				#user not present. Insert a new Record				
-				$stmt = self::$instance->prepare('insert into '.self::$db_pefix.'Users(oauth_provider, oauth_uid, userName, userEmail, userIP, userDataReg, userDataLastLogin, userStat) values (:oauth_provider, :uid, :username, :email, :ip, :datareg, :datalastlogin, :status) ');
-				$stmt->execute(array('oauth_provider' => $oauth_provider, 'uid' => $uid, 'username' => $username,'email' => $email, 'ip' => $_SERVER['REMOTE_ADDR'], 'datareg' => date("Y-m-d H:i:s"), 'datalastlogin' => '0000-00-00 00:00:00' ,'status' => 1));
-				$id_user_Reg = self::$instance->lastInsertId();
-				
-				$stmt2 = self::$instance->prepare('insert into '.self::$db_pefix.'UsersPersonal(UserID, UserPIVA,UserRealName, UserRealSurname) values (:uid, :p_iva, :name, :surname) ');
-				$stmt2->execute(array('uid' => $id_user_Reg,'p_iva' => '', 'name' => $userData['first_name'], 'surname' => $userData['last_name']));
-				
-				session_start();
-				$_SESSION['user_loged'] = $id_user_Reg;
-				$_SESSION['oauth_id'] = $uid;
-				$_SESSION['username'] = $username;
-				$_SESSION['email'] = $email;
-				$_SESSION['oauth_provider'] = $oauth_provider;
-				
-				echo '<meta http-equiv="refresh" content="0;URL=\'./\'" />';
-			}
-		}else if($oauth_provider == 'FreeCket'){
-			try{
-				$passwd = preg_replace('/[^A-Za-z0-9\-]/', '', hash('sha512', $userData['password']));
-				$check = self::$instance->prepare('select userID from '.self::$db_pefix.'Users where userEmail=:email and userPassword=:pswd limit 1');
-				$check->execute(array('email' => $email, 'pswd' => $passwd));
-				$row = $check->fetch();
-				if($row != false){
-					session_start();
-					$_SESSION['user_loged'] = $row['userID'];
-					$_SESSION['oauth_provider'] = $oauth_provider;
-					echo "_true_";
-				}else{
-					echo "_false_";
-				}
-				
-			}catch (Exception $e) {		
-				die("Oh noes! There's an error in the query: " . $e);
-			}	
-			self::$instance = null;
-		}
-	}	
 	
 	public static function get($dir, callable $callback){
 		
