@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>pecuswap | Access</title>
+
+        <!-- Icon & Seo -->
+        <link href="assets/img/pecus-image/slide04.png" rel="apple-touch-icon">
+        <link href="assets/img/pecus-image/slide04.png" rel="apple-touch-icon">
+        <link rel="icon" type="image/png" sizes="64x64" href="assets/img/pecus-image/slide04.png">
+
+
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+      
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1, minimum-scale=1, maximum-scale=1" >
+        <meta name="HandheldFriendly" content="True" >
+        <meta name="apple-touch-fullscreen" content="yes" >
+        <meta name="apple-mobile-web-app-capable" content="yes" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+        <!-- Material Kit CSS -->
+        <link href="assets/css/material-kit.min.css?v=2.0.5" rel="stylesheet" />
+
+		<link rel="stylesheet" href="https://unpkg.com/filepond@3.7.5/dist/filepond.min.css" />
+		<link rel="stylesheet" href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" />
+
+        <link href="assets/css/style.css" rel="stylesheet" />
+    </head>
+    <body>
+    
+        <div class="root" ng-controller="root">
+            <header>
+                <nav class="navbar navbar-light  navbar-expand-lg bg-white">
+                    <div class="container">
+                        <a class="navbar-brand only-moby pecus-font" href="index.html">pecuswap</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#!/getting-started">Come funziona</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact.html">contatti</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="faq.html">faq</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav form-inline ml-auto">
+                                <li class="nav-item">
+                                    <a href="access.html" class="btn btn-success btn-round">
+                                        Accedi
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            
+            </header>
+            
+            <main class="minh-100vh">
+                <section class="access_panel load-page">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 theme-backgroundColor text-center left-clm">
+                            <div class="container-column row">
+                                <div class="fshuh__ col-md-12"> 
+                                    <!--https://www.mestiereoperatore.it/images/circled_user_female.png-->
+                                    <img src="assets/img/pecus-image/guest.png" class="rounded-circle img-fluid" />
+                                    <h3>Scopri <font class="pecus-font">pecuswap</font></h2>
+                                    <p>Non sei ancora registrato?</p>
+                                    <a href="#signin" class="btn btn-info btn-round access_panel_btn" >
+                                        Registrati <i class="material-icons">keyboard_arrow_right</i>
+                                    </a>
+                                    <a href="#login" class="btn btn-info btn-round access_panel_btn display_none" >
+                                        Accedi <i class="material-icons">keyboard_arrow_right</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 white right-clm">
+                            <div class="container-column disable-hc">
+                                <form class="center-form login-panel" id="login">
+                                    <h3 class="black-text">Accedi su pecuswap</h3>
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="bmd-label-floating">Username</label>
+                                        <input type="text" class="form-control" id="exampleInput1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1" class="bmd-label-floating">Password</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value="" checked> Resta connesso
+                                            <span class="form-check-sign">
+                                            <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <p><a href="#" class="">Password dimenticata?</a></p>
+                                    
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" class="btn btn-transparent text-center" id="back-clm">Indietro</button>
+                                        <button type="submit" class="btn btn-info text-center">Accedi</button>
+                                    </div>
+                                    
+                                </form>
+
+                                <form class=" registration-panel" id="signin" style="display: none;">
+                                    <ul class="nav nav-pills nav-pills-info nav-reg text-center" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-link="link6" data-toggle="" href="#link6" role="tablist" aria-expanded="true">
+                                                Profilo
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link disabled" data-link="link1" data-toggle="" href="#link1" role="tablist" aria-expanded="false">
+                                                Dati Anagrafici
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link disabled" id="pr__" data-link="link2" data-toggle="" href="#link2" role="tablist" aria-expanded="false">
+                                                Residenza
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link disabled" data-link="link3" data-toggle="" href="#link3" role="tablist" aria-expanded="false">
+                                                Account
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link disabled" data-link="link4" data-toggle="" href="#link4" role="tablist" aria-expanded="false">
+                                                Social
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link disabled" data-link="link5" data-toggle="" href="#link5" role="tablist" aria-expanded="false">
+                                                Riepilogo
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="center-form iuhsd_">
+                                        <div class="tab-content tab-space">
+
+                                            <!--
+                                                 Profile
+                                                 Tab6
+                                            -->
+
+                                            <div class="tab-pane active" id="link6" aria-expanded="true">
+                                                <h3 class="black-text">Profilo</h3>
+                                                <div class="form-group">
+                                                    <label for="input_profile">Profilo</label>
+                                                    <select id="input_profile" class="form-control">
+                                                        <option selected value="0">Scegli</option>
+                                                        <option value="1">Privati</option>
+                                                        <option value="2">Societ&agrave;</option>
+                                                        <option value="3">Autonomi</option>
+                                                        <option value="4">Enti locali</option>
+                                                        <option value="5">No profit</option>
+                                                        <option value="6">No profit con P.IVA</option>
+                                                    </select>
+                                                </div>
+                                                <br><br>
+    
+                                                <div class="col-md-12 text-center">
+                                                    <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm">Indietro</button>
+                                                    <a href="#link1" class="btn btn-info text-center act__">Avanti</a>
+                                                </div>
+                                            </div>
+
+                                            <!--
+                                                 User Data
+                                                 Tab3
+                                            -->
+                                            <div class="tab-pane" id="link1" aria-expanded="false">
+                                                
+                                                <div id="personal_data"></div>
+    
+                                                <div class="col-md-12 text-center">
+                                                    <br>
+                                                    <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm">Indietro</button>
+                                                    <a href="#link6" class="btn btn-info text-center act__">Indietro</a>
+                                                    <a href="#link2" class="btn btn-info text-center act__">Avanti</a>
+                                                </div>
+                                            </div>
+
+                                            <!--
+                                                 Residence or office 
+                                                 Tab2
+                                            -->
+
+                                            <div class="tab-pane" id="link2" aria-expanded="false">
+                                                <h3 class="black-text">Sede o Residenza</h3>
+                                                <div class="form-group">
+                                                    <label for="exampleInput1" class="bmd-label-floating">Indirizzo*</label>
+                                                    <input type="text" class="form-control" id="exampleInput1">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInput1" class="bmd-label-floating">Citt&agrave;*</label>
+                                                    <input type="text" class="form-control" id="exampleInput1">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInput1" class="bmd-label-floating">CAP*</label>
+                                                    <input type="text" class="form-control" id="exampleInput1">
+                                                </div>
+    
+                                                <div class="form-group">
+                                                    <label for="input_profile">Nazione *</label>
+                                                    <select id="input_profile" class="form-control">
+                                                        <option selected value="0">National Api</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInput1" class="bmd-label-floating">Telefono*</label>
+                                                    <input type="text" class="form-control" id="exampleInput1">
+                                                </div>
+                                                <br>
+
+                                                <div class="col-md-12 text-center">
+                                                    <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm">Chiudi</button>
+                                                    <a href="#link1" class="btn btn-info text-center act__">Indietro</a>
+                                                    <a href="#link3" class="btn btn-info text-center act__">Avanti</a>
+                                                </div>
+                                            </div>
+
+                                            <!--
+                                                 Account
+                                                 Tab3
+                                            -->
+
+                                            <div class="tab-pane" id="link3" aria-expanded="false">
+                                                <h3 class="black-text">Account</h3>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInput1" class="bmd-label-floating">Username *</label>
+                                                    <input type="text" class="form-control" id="exampleInput1" name="username">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="exampleInput1" class="bmd-label-floating">Email *</label>
+                                                    <input type="email" class="form-control" id="exampleInput1" name="email">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInput1" class="bmd-label-floating">Password *</label>
+                                                    <input type="password" class="form-control" id="exampleInput1" name="password">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleInput1" class="bmd-label-floating">Conferma Password *</label>
+                                                    <input type="password" class="form-control" id="exampleInput1" name="confermepassword">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1"  class="bmd-label-floating">Descrizione Interessi</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+                                                </div>
+
+                                                <br>
+                                                <input type="file" class="copertine" accept="image/*" required name="copertine"/>
+    
+                                                <div class="col-md-12 text-center">
+                                                    <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm">Chiudi</button>
+                                                    <a href="#link2" class="btn btn-info text-center act__">Indietro</a>
+                                                    <a href="#link4" class="btn btn-info text-center act__">Avanti</a>
+                                                </div>
+                                            </div>
+
+                                            <!--
+                                                 Social
+                                                 Tab4
+                                            -->
+
+                                            <div class="tab-pane" id="link4" aria-expanded="false">
+                                                <h3 class="black-text">Condivisione su facebook</h3>
+
+                                                <br>
+                                                <a href="#" class="button-facebook"><span class="icon-facebook"></span><p>ACCEDI CON FACEBOOK</p></a>
+
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        Annunci pubblicati
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        Acquisti effettuati
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" value="">
+                                                        Feedback inviati
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+
+                                                <br>
+    
+                                                <div class="col-md-12 text-center">
+                                                    <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm">Chiudi</button>
+                                                    <a href="#link3" class="btn btn-info text-center act__">Indietro</a>
+                                                    <a href="#link5" class="btn btn-info text-center act__">Avanti</a>
+                                                </div>
+                                            </div>
+
+                                            <!--
+                                                 Riepilogo
+                                                 Tab5
+                                            -->
+
+                                            <div class="tab-pane" id="link5" aria-expanded="false">
+                                                <h3 class="black-text">Dati Anagrafici</h3>
+
+                                                <h3 class="black-text">Sede</h3>
+
+                                                <h3 class="black-text">Accoiunt</h3>
+
+                                                <h3 class="black-text">Condizioni d'uso</h3>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </form>                                
+                            </div>
+                            <div class="col-md-12 footer-line text-center">
+                                <small>&copy; Copyright 2019 - pecuswap </small>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                
+            </main>
+
+        </div>
+    
+        <!--   Core JS Files   -->
+        <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
+        <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+        <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+        <script src="assets/js/plugins/moment.min.js"></script>
+        <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+        <script src="assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+        <script src="assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+        <!--  Google Maps Plugin  -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+        <!-- Place this tag in your head or just before your close body tag. -->
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+        <script src="assets/js/material-kit.js?v=2.0.5" type="text/javascript"></script>
+
+        <!-- Get FilePond polyfills from the CDN -->
+        <script src="https://unpkg.com/filepond-polyfill/dist/filepond-polyfill.js"></script>
+
+        <!-- include FilePond library -->
+        <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
+        <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
+
+        <script src="assets/js/main.js" type="text/javascript"></script>
+        <script>
+            FilePond.registerPlugin(
+                FilePondPluginFileValidateSize,
+                FilePondPluginFileValidateType,
+                FilePondPluginImageExifOrientation,
+                FilePondPluginImageCrop,
+                FilePondPluginImageResize,
+                FilePondPluginImagePreview,
+                FilePondPluginImageTransform,
+            );
+
+            FilePond.setOptions({
+                acceptedFileTypes: ['image/*'],
+                maxFileSize: '5MB',
+                server: {
+                    process:(fieldName, file, metadata, load, error, progress, abort) => {
+                        // fieldName is the name of the input field
+                        // file is the actual file object to send
+                        uploadFilepond = [];
+                        uploadFilepond.push(fieldName, file);
+                        load();
+                        
+                        
+                        // Should expose an abort method so the request can be cancelled
+                        return {
+                            abort: () => {
+                                // This function is entered if the user has tapped the cancel button
+                                request.abort();
+
+                                // Let FilePond know the request has been cancelled
+                                abort();
+                            }
+                        };
+                    }
+                }
+            });
+            // Turn a file input into a file pond
+            var pond = FilePond.create(document.querySelector('input[type="file"]'));
+        </script>
+   </body>
+</html>

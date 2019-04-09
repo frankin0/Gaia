@@ -1,0 +1,499 @@
+<main class="minh-100vh">
+    <div class="error_log"></div>
+    <section class="access_panel">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 theme-backgroundColor text-center left-clm">
+                <div class="container-column row  no-margin">
+                    <div class="fshuh__ col-md-12"> 
+                        <img src="assets/img/pecus-image/guest.png" class="rounded-circle img-fluid" />
+                        <h3>Scopri <font class="pecus-font">{{title_site}}</font></h2>
+                        <p>Non sei ancora registrato?</p>
+                        <a href="#signin" class="btn btn-info btn-round access_panel_btn display_none" ng-click="access_panel_btn($event)">
+                            Registrati <i class="material-icons">keyboard_arrow_right</i>
+                        </a>
+                        <a href="#login" class="btn btn-info btn-round access_panel_btn" ng-click="access_panel_btn($event)">
+                            Accedi <i class="material-icons">keyboard_arrow_right</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 white right-clm">
+                <div class="container-column disable-hc"> <!-- ng-if="type === 'login'"-->
+                    <form class="center-form login-panel" ng-class="{hide: type !== 'login'}" name="login" id="login">
+                        <h3 class="black-text">Accedi su {{title_site}}</h3>
+                        <div class="form-group has-denger">
+                            <label for="username" class="bmd-label-floating">Username</label>
+                            <input type="text" class="form-control" ng-model="userLog.username" name="username" id="username" required ng-minlength="3">
+                            <span class="b-error" ng-show="login.username.$touched && login.username.$invalid">Inserisci un nome utente.<span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="bmd-label-floating">Password</label>
+                            <input type="password" class="form-control" ng-model="userLog.password" name="password" id="password" required ng-minlength="6">
+                            <span class="b-error" ng-show="login.password.$touched && login.password.$invalid">Inserisci la password corretta.<span>
+                        </div>
+                        <p />
+                        <p><a href="#" class="">Password dimenticata?</a></p>
+
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm" ng-click="back_clm($event)">Indietro</button>
+                            <button type="submit" class="btn btn-info text-center" ng-click="acces_login()">Accedi</button>
+                        </div>
+                        
+                    </form>
+                    <!-- ng-if="type == 'signin'"-->
+                    <form class=" registration-panel" id="signin" ng-class="{hide: type !== 'signin'}" name="signin">
+                        <ul class="nav nav-pills nav-pills-info nav-reg text-center" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-link="link6" ng-attr-toggle="{{tabOk}}" data-toggle="" href="#link6" role="tablist" aria-expanded="true" ng-click="$event.preventDefault();">
+                                    Profilo
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-link="link1" ng-class="{disabled: data.personal.id == 'NULL'}" ng-attr-toggle="{{tabOk}}" data-toggle="" href="#link1" role="tablist" aria-expanded="false" ng-click="$event.preventDefault();">
+                                    Dati Anagrafici
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" ng-class="{disabled: signin.data_nascita.$invalid || signin.denominazione.$invalid || signin.comune_nascita.$invalid || signin.codice_fiscale.$invalid || signin.prefessione.$invalid || signin.partita_iva.$invalid || signin.pec.$invalid}" id="pr__" data-link="link2"  ng-attr-toggle="{{tabOk}}" data-toggle="" href="#link2" role="tablist" aria-expanded="false" ng-click="$event.preventDefault();">
+                                    Residenza
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" ng-class="{disabled: signin.indirizzo.$invalid || signin.comune.$invalid || signin.cap.$invalid || signin.nazione.$invalid || signin.telefono.$invalid}" data-link="link3" ng-attr-toggle="{{tabOk}}" data-toggle="" href="#link3" role="tablist" aria-expanded="false" ng-click="$event.preventDefault();">
+                                    Account
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" ng-class="{disabled: signin.nome_utente.$invalid || signin.email.$invalid || signin.passwd.$invalid || signin.passwd_conferma.$invalid}" data-link="link4" ng-attr-toggle="{{tabOk}}" data-toggle="" href="#link4" role="tablist" aria-expanded="false" ng-click="$event.preventDefault();">
+                                    Social
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" ng-class="{disabled: data.personal.id == 'NULL' || signin.data_nascita.$invalid || signin.denominazione.$invalid || signin.comune_nascita.$invalid || signin.codice_fiscale.$invalid || signin.prefessione.$invalid || signin.partita_iva.$invalid || signin.pec.$invalid || signin.indirizzo.$invalid || signin.comune.$invalid || signin.cap.$invalid || signin.nazione.$invalid || signin.telefono.$invalid || signin.nome_utente.$invalid || signin.email.$invalid || signin.passwd.$invalid || signin.passwd_conferma.$invalid}" data-link="link5" ng-attr-toggle="{{tabOk}}" data-toggle="" href="#link5" role="tablist" aria-expanded="false" ng-click="riepilogo($event)">
+                                    Riepilogo
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="center-form iuhsd_ auto-width" ng-class="tabSpace">
+                            <div class="tab-content tab-space">
+
+                                <!--
+                                        Profile
+                                        Tab6
+                                -->
+
+                                <div class="tab-pane active" id="link6" aria-expanded="true">
+                                    <h3 class="black-text">Profilo</h3>
+                                    <div class="form-group">
+                                        <label for="input_profile">Profilo</label>
+                                        <select id="input_profile" class="form-control" name="id_tipo" ng-model="data.personal" ng-options="option.name for option in data.options track by option.id" ng-change="changeProfile($event);"></select>
+                                    </div>
+                                    <br><br>
+
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm" ng-click="back_clm($event)">Indietro</button>
+                                        <a href="#link1" class="btn btn-info text-center act__" ng-class="{disabled: data.personal.id == 'NULL'}" ng-click="act__($event)">Avanti</a>
+                                    </div>
+                                </div>
+
+                                <!--
+                                        User Data
+                                        Tab3
+                                -->
+                                <div class="tab-pane" id="link1" aria-expanded="false">
+                                    <!--ng-include="data.personal.url"-->
+                                    <div id="personal_data" >
+                                            <h3 class="black-text" ng-show="['NPPI' ,'PROF', 'PUBA'].indexOf(userType.id_tipo) > -1">Dati Anagrafici</h3>
+                                            <h3 class="black-text" ng-show="['AZIE'].indexOf(userType.id_tipo) > -1">Societ&agrave;</h3>
+
+                                            <div class="form-group">
+                                                <label for="denominazione" class="bmd-label-floating">{{descrDenominazione()}} *</label>
+                                                <input type="text" class="form-control" name="denominazione" id="denominazione" ng-model="userType.denominazione" required/>
+                                                <span class="b-error" ng-show="signin.denominazione.$touched && signin.denominazione.$invalid">
+                                                    Inserisci il tuo nome e cognome.
+                                                </span>
+                                            </div>
+
+                                            <div class="col-md-12" ng-show="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1">
+                                                <br>
+                                                <div class="form-check form-check-radio form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="radio" name="sesso" value="U" ng-model="userType.sesso" checked> Uomo
+                                                        <span class="circle">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-radio form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="radio" name="sesso" value="D" ng-model="userType.sesso"> Donna
+                                                        <span class="circle">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <span class="b-error" ng-show="signin.sesso.$touched && signin.sesso.$invalid">
+                                                    Inserisci il tuo sesso.
+                                                </span>
+                                            </div>
+                                            <!-- input with datetimepicker -->
+                                            <div class="form-group" ng-show="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1">
+                                                <label class="label-control">Data di nascita*</label>
+                                                <input type="date" class="form-control datetimepicker" id="data_nascita" name="data_nascita" valid-date-format="" ng-model="userType.data_nascita" placeholder="gg/mm/aaaa" ng-required="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1" min="1900-01-01" max="2002-01-01" required/>
+                                                <span class="b-error" ng-show="signin.data_nascita.$touched && signin.data_nascita.$invalid">
+                                                    Inserisci la tua data di nascita.
+                                                </span>
+                                            </div>
+
+                                            <div class="form-group" ng-show="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1">
+                                                <label for="comune_nascita" class="bmd-label-floating">Comune di nascita*</label>
+                                                <input type="text" class="form-control" id="comune_nascita" name="comune_nascita" ng-model="userType.comune_nascita" valid-date-format ng-required="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1" required />
+                                                <span class="b-error" ng-show="signin.comune_nascita.$touched && signin.comune_nascita.$invalid">
+                                                    Inserisci il tuo comune di nascita.
+                                                </span>
+                                            </div>
+                                            <div class="form-group" ng-show="['PRIV' ,'PROF', 'NPCF'].indexOf(userType.id_tipo) > -1">
+                                                <label for="codice_fiscale" class="bmd-label-floating">Codice Fiscale*</label>
+                                                <input type="text" class="form-control" id="codice_fiscale" style="text-transform: uppercase;" name="codice_fiscale" ng-model="userType.codice_fiscale" ng-required="['PRIV' ,'PROF', 'NPCF'].indexOf(userType.id_tipo) > -1" pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$" capitalize required />
+                                                <span class="b-error" ng-show="signin.codice_fiscale.$touched && signin.codice_fiscale.$invalid">
+                                                    Inserisci il tuo codice fiscale.
+                                                </span>
+                                            </div>
+                                            <div class="form-group" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                                <label for="prefessione" class="bmd-label-floating">Professione*</label>
+                                                <input type="text" class="form-control" id="prefessione" name="prefessione" ng-model="userType.prefessione" ng-required="['PROF'].indexOf(userType.id_tipo) > -1" capitalize required />
+                                                <span class="b-error" ng-show="signin.prefessione.$touched && signin.prefessione.$invalid">
+                                                    Inserisci la tua professione
+                                                </span>
+                                            </div>
+                                            <div class="form-group" ng-show="['AZIE','NPPI' ,'PROF', 'PUBA'].indexOf(userType.id_tipo) > -1">
+                                                <label for="partita_iva" class="bmd-label-floating">Partita IVA*</label>
+                                                <input type="text" class="form-control" id="partita_iva" name="partita_iva" ng-model="userType.partita_iva" ng-required="['AZIE','NPPI' ,'PROF', 'PUBA'].indexOf(userType.id_tipo) > -1" required />
+                                                <span class="b-error" ng-show="signin.partita_iva.$touched && signin.partita_iva.$invalid">
+                                                    Inserisci la partita iva
+                                                </span>
+                                            </div>
+                                            <div class="form-group" ng-show="['NPCF', 'NPPI', 'AZIE', 'PROF', 'PUBA'].indexOf(userType.id_tipo) > -1">
+                                                <label for="pec" class="bmd-label-floating">PEC</label>
+                                                <input type="text" class="form-control" id="pec" name="pec" ng-model="userType.pec">
+                                            </div>
+
+                                    </div>
+
+                                    <div class="col-md-12 text-center">
+                                        <br>
+                                        <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm" ng-click="back_clm($event)">Indietro</button>
+                                        <a href="#link6" class="btn btn-info text-center act__" ng-click="act__($event)">Indietro</a>
+                                        <a href="#link2" class="btn btn-info text-center act__ disabled" ng-class="{disabled: signin.data_nascita.$invalid || signin.denominazione.$invalid || signin.comune_nascita.$invalid || signin.codice_fiscale.$invalid || signin.prefessione.$invalid || signin.partita_iva.$invalid || signin.pec.$invalid}" ng-click="act__($event)">Avanti</a>
+                                    </div>
+                                </div>
+
+                                <!--
+                                        Residence or office 
+                                        Tab2
+                                -->
+
+                                <div class="tab-pane" id="link2" aria-expanded="false">
+                                    <h3 class="black-text">{{descrIndirizzo()}}</h3>
+                                    <div class="form-group">
+                                        <label for="indirizzo" class="bmd-label-floating">Indirizzo*</label>
+                                        <input type="text" class="form-control" id="indirizzo" name="indirizzo" ng-model="userType.indirizzo" required />
+
+                                        <span class="b-error" ng-show="signin.indirizzo.$touched && signin.indirizzo.$invalid">
+                                            Inserisci il tuo indirizzo.
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="comune" class="bmd-label-floating">Citt&agrave;*</label>
+                                        <input type="text" class="form-control" id="comune" name="comune" ng-model="userType.comune" required typehead="ajax/method/imp.sito.varie.SelectItemsController/getPaesi" on-select="selComune" />
+                                        <span class="b-error" ng-show="signin.comune.$touched && signin.comune.$invalid">
+                                            Inserisci il tuo comune di residenza.
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="cap" class="bmd-label-floating">CAP*</label>
+                                        <input type="text" class="form-control" id="cap" name="cap" ng-model="userType.cap" require />
+                                        <span class="b-error" ng-show="signin.cap.$touched && signin.cap.$invalid">
+                                            Inserisci il tuo cap
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nazione">Nazione *</label>
+                                        <select id="nazione" name="nazione" class="form-control" ng-options="option.descrizione for option in selNazioni.options track by option.nazione" ng-model="selNazioni.personal" required></select>
+                                        <span class="b-error" ng-show="signin.nazione.$touched && signin.nazione.$invalid">
+                                            Inserisci la tua nazione.
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="telefono" class="bmd-label-floating">Telefono*</label>
+                                        <input type="text" class="form-control" id="telefono" name="telefono" ng-model="userType.telefono" required capitalize />
+                                        <span class="b-error" ng-show="signin.telefono.$touched && signin.telefono.$invalid">
+                                            Inserisci un recapito telefonico.
+                                        </span>
+                                    </div>
+                                    <br>
+
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm" ng-click="back_clm($event)">Chiudi</button>
+                                        <a href="#link1" class="btn btn-info text-center act__"  ng-click="act__($event)">Indietro</a>
+                                        <a href="#link3" class="btn btn-info text-center act__" ng-class="{disabled: signin.indirizzo.$invalid || signin.comune.$invalid || signin.cap.$invalid || signin.nazione.$invalid || signin.telefono.$invalid}" ng-click="act__($event)">Avanti</a>
+                                    </div>
+                                </div>
+
+                                <!--
+                                        Account
+                                        Tab3
+                                -->
+
+                                <div class="tab-pane" id="link3" aria-expanded="false">
+                                    <h3 class="black-text">Account</h3>
+
+                                    <div class="form-group">
+                                        <label for="nome_utente" class="bmd-label-floating">Username *</label>
+                                        <input type="text" class="form-control" id="nome_utente" name="nome_utente" ng-model="userType.nome_utente" required />
+                                        <span class="b-error" ng-show="signin.nome_utente.$touched && signin.nome_utente.$invalid">
+                                            Inserisci un UserName.
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="email" class="bmd-label-floating">Email *</label>
+                                        <input type="email" class="form-control" id="email" name="email" ng-model="userType.email" required />
+                                        <span class="b-error" ng-show="signin.email.$touched && signin.email.$invalid">
+                                            Inserisci una Email.
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwd" class="bmd-label-floating">Password *</label>
+                                        <input type="password" class="form-control" id="passwd" name="passwd" ng-model="userType.passwd" required />
+                                        <span class="b-error" ng-show="signin.passwd.$touched && signin.passwd.$invalid">
+                                            Inserisci una password
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwd_conferma" class="bmd-label-floating">Conferma Password *</label>
+                                        <input type="password" class="form-control" id="passwd_conferma" name="passwd_conferma" ng-model="userType.passwd_conferma" compare-to="userType.passwd" required />
+                                        <span class="b-error" ng-show="signin.passwd_conferma.$touched && signin.passwd_conferma.$invalid">
+                                            Controlla la tua password!
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descrizione_attivita"  class="bmd-label-floating">Descrizione Interessi</label>
+                                        <textarea class="form-control" id="descrizione_attivita" rows="3" name="descrizione_attivita" ng-model="userType.descrizione_attivita"></textarea>
+                                    </div>
+
+                                    <br>
+                                    <input type="file" class="profilepic" accept="image/*" required name="profilepic" ng-model="profilepic"/>
+
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm" ng-click="back_clm($event)">Chiudi</button>
+                                        <a href="#link2" class="btn btn-info text-center act__"  ng-click="act__($event)">Indietro</a>
+                                        <a href="#link4" class="btn btn-info text-center act__" ng-class="{disabled: signin.nome_utente.$invalid || signin.email.$invalid || signin.passwd.$invalid || signin.passwd_conferma.$invalid}" ng-click="act__($event)">Avanti</a>
+                                    </div>
+                                </div>
+
+                                <!--
+                                        Social
+                                        Tab4
+                                -->
+
+                                <div class="tab-pane" id="link4" aria-expanded="false">
+                                    <h3 class="black-text">Condivisione su facebook</h3>
+
+                                    <br>
+                                    <a href="#" class="button-facebook"><span class="icon-facebook"></span><p>ACCEDI CON FACEBOOK</p></a>
+
+                                    <div class="form-check">
+                                        <label class="form-check-b">
+                                            <input class="form-check-input" type="checkbox" id="fb_annunci" name="fb_annunci" ng-model="userType.fb_annunci" value="">
+                                            Annunci pubblicati
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check ">
+                                        <label class="form-check-b">
+                                            <input class="form-check-input" type="checkbox" id="fb_acquisti" name="fb_acquisti" ng-model="userType.fb_acquisti" value="">
+                                            Acquisti effettuati
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-b">
+                                            <input class="form-check-input" type="checkbox" id="fb_feedback_inviati" name="fb_feedback_inviati" ng-model="userType.fb_feedback_inviati" value="">
+                                            Feedback inviati
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <br>
+
+                                    <div class="col-md-12 text-center">
+                                        <button type="submit" class="btn btn-transparent text-center back-clm" id="back-clm" ng-click="back_clm($event)">Chiudi</button>
+                                        <a href="#link3" class="btn btn-info text-center act__"  ng-click="act__($event)">Indietro</a>
+                                        <a href="#link5" class="btn btn-info text-center act__"  ng-click="act__($event)">Avanti</a>
+                                    </div>
+                                </div>
+
+                                <!--
+                                        Riepilogo
+                                        Tab5
+                                -->
+
+                                <div class="tab-pane" id="link5" aria-expanded="false">
+                                    <h3 class="black-text">Dati Anagrafici</h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Denominazione:</b> {{userType.denominazione}}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><b>Categoria Utente:</b> {{getDescrTipo()}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="['PRIV'].indexOf(userType.id_tipo) > -1">
+                                        <div class="col-md-6">
+                                            <p><b>Sesso:</b> {{userType.sesso}}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><b>Data di nascita:</b> {{userType.data_nascita | date: "yyyy-MM-dd"}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="['PRIV'].indexOf(userType.id_tipo) > -1">
+                                        <div class="col-md-6 ">
+                                            <p><b>Comune di nascita:</b> {{userType.comune_nascita}}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <p><b>Codisce fiscale:</b> {{userType.codice_fiscale}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="['NPCF','NPPI', 'PUBA', 'AZIE'].indexOf(userType.id_tipo) > -1">
+                                        <div class="col-md-6 ">
+                                            <p><b>Partita IVA:</b> {{userType.partita_iva}}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <p><b>PEC:</b> {{userType.pec}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                        <div class="col-md-6 ">
+                                            <p><b>Sesso:</b> {{userType.sesso}}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                                <p><b>Data di nascita:</b> {{userType.data_nascita | date: "yyyy-MM-dd"}}</p>
+                                            </div>
+                                    </div>
+                                    <div class="row" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                        <div class="col-md-6 ">
+                                            <p><b>Comune di nascita:</b> {{userType.comune_nascita}}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <p><b>Codisce fiscale:</b> {{userType.codice_fiscale}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                        <div class="col-md-6 ">
+                                            <p><b>Professione:</b> {{userType.prefessione}}</p>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <p><b>Partita IVA:</b> {{userType.partita_iva}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                        <div class="col-md-6">
+                                            <p><b>PEC:</b> {{userType.pec}}</p>
+                                        </div>
+                                    </div>
+
+                                    <h3 ng-show="['PRIV'].indexOf(userType.id_tipo) > -1">Residenza</h3>
+                                    <h3 ng-show="['PRIV'].indexOf(userType.id_tipo) > -1" class="">Sede</h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Indirizzo:</b> {{userType.indirizzo}}</p>
+                                            <br>
+                                            <p><b>CAP:</b> {{userType.cap}}</p>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <p><b>Comune:</b> {{userType.comune}}</p>
+                                            <br>
+                                            <p><b>Nazione:</b>  {{userType.nazione}}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><b>Telefono:</b> {{userType.telefono}}</p>
+                                        </div>
+                                    </div>
+
+                                    <h3 class="black-text">Account</h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><b>Username:</b> {{userType.nome_utente}}</p>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <p><b>Email:</b> {{userType.email}}</p>
+                                        </div>
+                                    </div>
+
+                                    <h3 class="black-text">Condizioni d'uso</h3>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            Accetto le <a href="#!/policies">condizioni d'uso </a> 
+                                            <input class="form-check-input" type="checkbox" name="condizioni_accettate" id="condizioni_accettate" ng-model="condizioni_accettate" >
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            Accetto specificamente <a href="#!/policies">queste clausole</a>
+                                            <input class="form-check-input" type="checkbox" name="condizioni_accettate2" id="condizioni_accettate2" ng-model="condizioni_accettate2" >
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            Accetto quanto contenuto nella <a href="#!/privacy">informativa sulla privacy</a>
+                                            <input class="form-check-input" type="checkbox" name="condizioni_accettate3" id="condizioni_accettate3" ng-model="condizioni_accettate3" >
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <!--<div class="g-recaptcha" data-callback="recaptchaCallback" data-expired-callback="recaptchaCallbackExpired" data-sitekey="6LcTMUYUAAAAAMu1FOG_wvIPjCA1tNU6HH7wayHL"></div>-->
+                                    <re-captcha ng-model='userType.chaptcha'></re-captcha>
+
+                                    <a href="#link4" class="btn btn-info text-center act__"  ng-click="act__($event)">Indietro</a>
+                                    <a class="btn btn-info text-center" style="color: #fff;" ng-class="{disabled: (!userType.chaptcha || !condizioni_accettate || !condizioni_accettate2 || !condizioni_accettate3) }" ng-click="createProfile();">Crea Profilo</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </form>                                
+                </div>
+                <div class="col-md-12 footer-line text-center">
+                    <small>Copyright © {{title_site}} 2018 </small>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+</main>

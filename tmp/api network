@@ -1,0 +1,40 @@
+global{
+    la piazzetta, il mercato, la fiera,
+}
+
+Search{
+    Search Ads, 
+    Search Groups,
+    Search Summary Feedback{
+        Received Feed,
+        Released Feed,
+    }
+}
+
+Access {
+    login, reg, password dimenticata
+}
+
+user connected{
+    Global Notify(Messages and Notify),
+    Create Ads,
+    Desires (Add, Show list),
+    Shop, 
+    Pecus vincolati,
+    Groups(Search , add, Show all groups),
+    User Search
+    User Global info,
+    User edit{
+        Edit Password,
+        Edit Privacy,
+        Delete User
+    }
+    Summary ads(All),
+    Summary Feedback{
+        Received Feed,
+        Released Feed,
+    }
+    Summary Shop,
+    Balance Pecus in Global User Info,
+    Balance Money in Global User Info
+}

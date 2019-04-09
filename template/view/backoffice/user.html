@@ -1,0 +1,547 @@
+<div class="header-box" style="    background: url(assets/img/copertine2.jpg);
+    background-size: 100%;
+    background-position: 50% 85%;">
+
+    <!--<div class=container>
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center white-text relative">
+                    <h1 class="pecus-font" style="margin-top: 50px;">Pecuswap</h1>  
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <div class="container-user flex">
+        <div class="inf-one"  ng-class="{img_loaded: beforeSend == false}">
+            <img src="{{base64Img}}" alt="User ProfilePic" class="blur profile_pic img-raised rounded-circle img-fluid" />
+            <div class="sk-fading-circle header-top-image">
+                <div class="sk-circle1 sk-circle"></div>
+                <div class="sk-circle2 sk-circle"></div>
+                <div class="sk-circle3 sk-circle"></div>
+                <div class="sk-circle4 sk-circle"></div>
+                <div class="sk-circle5 sk-circle"></div>
+                <div class="sk-circle6 sk-circle"></div>
+                <div class="sk-circle7 sk-circle"></div>
+                <div class="sk-circle8 sk-circle"></div>
+                <div class="sk-circle9 sk-circle"></div>
+                <div class="sk-circle10 sk-circle"></div>
+                <div class="sk-circle11 sk-circle"></div>
+                <div class="sk-circle12 sk-circle"></div>
+            </div>
+            <div class="feedback bottom">
+                <span class="fa fa-star f-checked"></span>
+                <span class="fa fa-star f-checked"></span>
+                <span class="fa fa-star f-checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+            </div>
+        </div>
+        <div class="inf-two">
+            <h3>{{GetUserInfo.denominazione}} <small class="send_message"> <a href="">Scrivi messaggio</a></small></h3>
+            <p>{{GetUserInfo.nome_utente}} &#8226; {{GetUserInfo.comune}} {{GetUserInfo.nazione}}</p>
+            <p>{{GetUserInfo.email}}</p>
+        </div>
+    </div>
+</div>
+
+<main item>
+    <section class="user-sect">
+        <div class=" margin-top box-r__">
+            <div class="card">
+                <div class="card-header card-header-info  text-center">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" ng-class="{active: pg == 'description' || pg == null, show: pg == 'description' || pg == null}" href="#description" data-toggle="tab" ng-click="$event.preventDefault();">Su di me</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#messenger" ng-class="{active: pg == 'messenger', show: pg == 'messenger'}" data-toggle="tab" ng-click="$event.preventDefault();">Messenger</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#settings" ng-class="{active: pg == 'settings', show: pg == 'settings'}" ng-if="userId == user.id" ng-class="{hidden: userId != user.id}" data-toggle="tab" ng-click="$event.preventDefault();">Impostazioni</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#editPassword" ng-class="{active: pg == 'editPassword', show: pg == 'editPassword'}" ng-if="userId == user.id" ng-class="{hidden: userId != user.id}" data-toggle="tab" ng-click="$event.preventDefault();">Modifica Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#privacy" ng-class="{active: pg == 'privacy', show: pg == 'privacy'}" ng-if="userId == user.id" ng-class="{hidden: userId != user.id}" data-toggle="tab" ng-click="$event.preventDefault();">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#closeAccount" ng-class="{active: pg == 'closeAccount', show: pg == 'closeAccount'}" ng-if="userId == user.id" ng-class="{hidden: userId != user.id}" data-toggle="tab" ng-click="$event.preventDefault();">Chiudi Account</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane container" ng-class="{active: pg == 'description' || pg == null, show: pg == 'description' || pg == null}" id="description">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h3>Su di me</h3>
+                                    <p><strong>Tipo Utente: </strong> <b>{{getDescrTipo()}}</b></p>
+                                    <p><strong>Nome e Cognome: </strong> {{GetUserInfo.denominazione}}</p>
+                                    <p ng-show="userType.comune_nascita_vis == 'V'"><strong>Nato a: </strong> {{GetUserInfo.comune_nascita}}</p>
+                                    <p ng-show="userType.data_nascita_vis == 'V'"><strong>Nato il: </strong> {{GetUserInfo.data_nascita | date: "dd MMM YYYY"}}</p>
+                                    <p ng-show="userType.indirizzo_vis == 'V'"><strong>Residenza: </strong> {{GetUserInfo.cap}} {{GetUserInfo.comune}} {{GetUserInfo.indirizzo}} {{GetUserInfo.nazione}}</p>
+                                    <p ng-show="userType.telefono_vis == 'V'"><strong>Telefono: </strong> {{GetUserInfo.telefono}}</p>
+                                    <p ng-show="userType.email_vis == 'V'"><strong>Email: </strong> {{GetUserInfo.email}}</p>
+                                    <p ng-show="userType.partita_iva_vis == 'V'"><strong>Partita IVA: </strong> {{GetUserInfo.partita_iva}}</p>
+                                    <p ng-show="userType.codice_fiscale_vis == 'V'"><strong>Codice Fiscale: </strong> {{GetUserInfo.codice_fiscale}}</p>
+                                    <p />
+                                    <p><strong>Annunci Attivi: </strong> NAN</p>
+                                    <p><strong>Annunci Venduti: </strong> NAN</p>
+                                    <p><strong>Feedback: </strong> NAN</p>
+                                    <p><br></p>
+                                </div>
+                                <div class="col-6">
+                                    <h3>Descrizione</h3>
+                                    <p>{{GetUserInfo.descrizione_attivita}}</p>
+                                </div>
+                                <div class="col-12">
+                                    <h4>Desideri</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card card-profile card-plain">
+                                                <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="card-header card-header-image">
+                                                    <a href="#pablo">
+                                                        <img class="img" src="./assets/img/faces/card-profile1-square.jpg">
+                                                    </a>
+                                                    <div class="colored-shadow" style="background-image: url(&quot;./assets/img/faces/card-profile1-square.jpg&quot;); opacity: 1;"></div></div>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <div class="card-body text-left">
+                                                        <h4 class="card-title">__titolo_annuncio__</h4>
+                                                        <h6 class="card-category text-muted"></h6>
+                                                        <p class="card-description">
+                                                            Testo limitato dell'annucnio
+                                                        </p>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <a ng-click="removeOsserved()" class="btn btn-info btn-fab btn-fab-mini btn-round btn-transparent icn-favourite btn-tooltip" data-toggle="tooltip" data-placement="left" title="Rimuovi dai desideri"><i class="material-icons theme-textColor">delete</i></a>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" ng-class="{active: pg == 'messenger', show: pg == 'messenger'}" id="messenger">
+                            <p>Messenger</p>
+                        </div>
+                        <div class="tab-pane" ng-class="{active: pg == 'settings', show: pg == 'settings'}" ng-if="userId == user.id" ng-class="{hidden: userId != user.id}" id="settings">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-3 section__card" style="background: transparent;">
+                                        <ul class="ut-item-list cat_list">
+                                            <li>
+                                                <a ng-click="panelSel($event)" href="#personal_data" class="item-list selezionato" >Dati Anagrafici <i class="fas fa-chevron-right right"></i></a>
+                                            </li>
+                                            <li>
+                                                <a ng-click="panelSel($event)" href="#residence" class="item-list " >Residenza <i class="fas fa-chevron-right right"></i></a>
+                                            </li>
+                                            <li>
+                                                <a ng-click="panelSel($event)" href="#account" class="item-list " >Account <i class="fas fa-chevron-right right"></i></a>
+                                            </li>
+                                            <li>
+                                                <a ng-click="panelSel($event)" href="#social" class="item-list " >Social <i class="fas fa-chevron-right right"></i></a>
+                                            </li>
+                                            <li>
+                                                <a ng-click="panelSel($event)" href="#payment" class="item-list ">PayPal <i class="fas fa-chevron-right right"></i></a>
+                                            </li>
+                                            <li>
+                                                <a ng-click="panelSel($event)" href="#summary" class="item-list ">Riepilogo <i class="fas fa-chevron-right right"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-9">
+                                        <form id="editAccount" name="editAccount">
+                                            <div id="personal_data" class="panel-res">
+                                                <h3>Modifica i dati del tuo account</h3>
+
+                                                <div class="form-group">
+                                                    <label for="denominazione" class="bmd-label-floating">{{descrDenominazione()}} *</label>
+                                                    <input type="text" class="form-control" name="denominazione" id="denominazione" ng-model="userType.denominazione" required/>
+                                                    <span class="b-error" ng-show="editAccount.denominazione.$touched && editAccount.denominazione.$invalid">
+                                                        Inserisci il tuo nome e cognome.
+                                                    </span>
+                                                </div>
+        
+                                                <div class="col-md-12" ng-show="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1">
+                                                    <br>
+                                                    <div class="form-check form-check-radio form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="radio" name="sesso" value="U" ng-model="userType.sesso" checked> Uomo
+                                                            <span class="circle">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-radio form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="radio" name="sesso" value="D" ng-model="userType.sesso"> Donna
+                                                            <span class="circle">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <span class="b-error" ng-show="editAccount.sesso.$touched && editAccount.sesso.$invalid">
+                                                        Inserisci il tuo sesso.
+                                                    </span>
+                                                </div>
+                                                <!-- input with datetimepicker -->
+                                                <div class="form-group" ng-show="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1">
+                                                    <label class="label-control" for="data_nascita">Data di nascita*</label>
+                                                    <input type="date" class="form-control datetimepicker" id="data_nascita" name="data_nascita"  valid-date-format ng-model="data_nascita" placeholder="gg/mm/aaaa" ng-required="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1" min="1900-01-01" max="2002-01-01" required/>
+                                                    <span class="b-error" ng-show="editAccount.data_nascita.$touched && editAccount.data_nascita.$invalid">
+                                                        Inserisci la tua data di nascita.
+                                                    </span>
+                                                </div>
+        
+                                                <div class="form-group" ng-show="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1">
+                                                    <label for="comune_nascita" class="bmd-label-floating">Comune di nascita*</label>
+                                                    <input type="text" class="form-control" id="comune_nascita" name="comune_nascita" ng-model="userType.comune_nascita" ng-required="['PRIV' ,'PROF'].indexOf(userType.id_tipo) > -1" required />
+                                                    <span class="b-error" ng-show="editAccount.comune_nascita.$touched && editAccount.comune_nascita.$invalid">
+                                                        Inserisci il tuo comune di nascita.
+                                                    </span>
+                                                </div>
+                                                <div class="form-group" ng-show="['PRIV' ,'PROF', 'NPCF'].indexOf(userType.id_tipo) > -1">
+                                                    <label for="codice_fiscale" class="bmd-label-floating">Codice Fiscale*</label>
+                                                    <input type="text" class="form-control" id="codice_fiscale" style="text-transform: uppercase;" name="codice_fiscale" ng-model="userType.codice_fiscale" ng-required="['PRIV' ,'PROF', 'NPCF'].indexOf(userType.id_tipo) > -1" pattern="^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$" capitalize required />
+                                                    <span class="b-error" ng-show="editAccount.codice_fiscale.$touched && editAccount.codice_fiscale.$invalid">
+                                                        Inserisci il tuo codice fiscale.
+                                                    </span>
+                                                </div>
+                                                <div class="form-group" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                                    <label for="prefessione" class="bmd-label-floating">Professione*</label>
+                                                    <input type="text" class="form-control" id="prefessione" name="prefessione" ng-model="userType.prefessione" ng-required="['PROF'].indexOf(userType.id_tipo) > -1" capitalize required />
+                                                    <span class="b-error" ng-show="editAccount.prefessione.$touched && editAccount.prefessione.$invalid">
+                                                        Inserisci la tua professione
+                                                    </span>
+                                                </div>
+                                                <div class="form-group" ng-show="['AZIE','NPPI' ,'PROF', 'PUBA'].indexOf(userType.id_tipo) > -1">
+                                                    <label for="partita_iva" class="bmd-label-floating">Partita IVA*</label>
+                                                    <input type="text" class="form-control" id="partita_iva" name="partita_iva" ng-model="userType.partita_iva" ng-required="['AZIE','NPPI' ,'PROF', 'PUBA'].indexOf(userType.id_tipo) > -1" required />
+                                                    <span class="b-error" ng-show="editAccount.partita_iva.$touched && editAccount.partita_iva.$invalid">
+                                                        Inserisci la partita iva
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div id="residence" class="hidden panel-res">
+                                                <h3 class="black-text">{{descrIndirizzo()}}</h3>
+                                                <div class="form-group">
+                                                    <label for="indirizzo" class="bmd-label-floating">Indirizzo*</label>
+                                                    <input type="text" class="form-control" id="indirizzo" name="indirizzo" ng-model="userType.indirizzo" required />
+            
+                                                    <span class="b-error" ng-show="editAccount.indirizzo.$touched && editAccount.indirizzo.$invalid">
+                                                        Inserisci il tuo indirizzo.
+                                                    </span>
+                                                </div>
+            
+                                                <div class="form-group">
+                                                    <label for="comune" class="bmd-label-floating">Citt&agrave;*</label>
+                                                    <input type="text" class="form-control" id="comune" name="comune" ng-model="userType.comune" required typehead="ajax/method/imp.sito.varie.SelectItemsController/getPaesi" on-select="selComune" />
+                                                    <span class="b-error" ng-show="editAccount.comune.$touched && editAccount.comune.$invalid">
+                                                        Inserisci il tuo comune di residenza.
+                                                    </span>
+                                                </div>
+            
+                                                <div class="form-group">
+                                                    <label for="cap" class="bmd-label-floating">CAP*</label>
+                                                    <input type="text" class="form-control" id="cap" name="cap" ng-model="userType.cap" require />
+                                                    <span class="b-error" ng-show="editAccount.cap.$touched && editAccount.cap.$invalid">
+                                                        Inserisci il tuo cap
+                                                    </span>
+                                                </div>
+            
+                                                <div class="form-group">
+                                                    <label for="nazione">Nazione *</label>
+                                                    <select id="nazione" name="nazione" class="form-control" ng-options="option.descrizione for option in selNazioni.options track by option.nazione" ng-model="selNazioni.personal" required></select>
+                                                    <span class="b-error" ng-show="editAccount.nazione.$touched && editAccount.nazione.$invalid">
+                                                        Inserisci la tua nazione.
+                                                    </span>
+                                                </div>
+            
+                                                <div class="form-group">
+                                                    <label for="telefono" class="bmd-label-floating">Telefono*</label>
+                                                    <input type="text" class="form-control" id="telefono" name="telefono" ng-model="userType.telefono" required capitalize />
+                                                    <span class="b-error" ng-show="editAccount.telefono.$touched && editAccount.telefono.$invalid">
+                                                        Inserisci un recapito telefonico.
+                                                    </span>
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <div id="account" class="hidden panel-res">
+                                                <h3 class="black-text">Account</h3>
+
+                                                <div class="form-group">
+                                                    <label for="nome_utente" class="bmd-label-floating">Username *</label>
+                                                    <input type="text" class="form-control" id="nome_utente" name="nome_utente" ng-model="userType.nome_utente" required />
+                                                    <span class="b-error" ng-show="editAccount.nome_utente.$touched && editAccount.nome_utente.$invalid">
+                                                        Inserisci un UserName.
+                                                    </span>
+                                                </div>
+            
+                                                <div class="form-group">
+                                                    <label for="email" class="bmd-label-floating">Email *</label>
+                                                    <input type="email" class="form-control" id="email" name="email" ng-model="userType.email" required />
+                                                    <span class="b-error" ng-show="editAccount.email.$touched && editAccount.email.$invalid">
+                                                        Inserisci una Email.
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="descrizione_attivita"  class="bmd-label-floating">Descrizione Interessi</label>
+                                                    <textarea class="form-control" id="descrizione_attivita" rows="3" name="descrizione_attivita" ng-model="userType.descrizione_attivita">{{userType.descrizione_attivita}}</textarea>
+                                                </div>
+            
+                                                <br>
+                                                <input type="file" class="profilepic" accept="image/*" required name="profilepic" ng-model="profilepic"/>
+        
+                                            </div>
+                                            <div id="social" class="hidden panel-res">
+                                                <h3 class="black-text">Condivisione su facebook</h3>
+
+                                                <br>
+                                                <a href="#" class="button-facebook"><span class="icon-facebook"></span><p>ACCEDI CON FACEBOOK</p></a>
+            
+                                                <div class="form-check">
+                                                    <label class="form-check-b">
+                                                        <input class="form-check-input" type="checkbox" id="fb_annunci" name="fb_annunci" ng-model="userType.fb_annunci">
+                                                        Annunci pubblicati
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ">
+                                                    <label class="form-check-b">
+                                                        <input class="form-check-input" type="checkbox" id="fb_acquisti" name="fb_acquisti" ng-model="userType.fb_acquisti" >
+                                                        Acquisti effettuati
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-b">
+                                                        <input class="form-check-input" type="checkbox" id="fb_feedback_inviati" name="fb_feedback_inviati" ng-model="userType.fb_feedback_inviati">
+                                                        Feedback inviati
+                                                        <span class="form-check-sign">
+                                                            <span class="check"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+            
+                                                <br>
+                                            </div>
+                                            <div id="payment" class="hidden panel-res">
+                                                <h3 class="black-text">Paypal Account</h3>
+
+                                                <div class="form-group">
+                                                    <label for="account_paypal" class="bmd-label-floating">PayPal </label>
+                                                    <input type="text" class="form-control" id="account_paypal" name="account_paypal" ng-model="userType.account_paypal" />
+                                                    <span class="b-error" ng-show="editAccount.account_paypal.$touched && editAccount.account_paypal.$invalid">
+                                                        Inserisci un UserName.
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div id="summary" class="hidden panel-res">
+                                                <h3 class="black-text">Dati Anagrafici</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p><b>Denominazione:</b> {{userType.denominazione}}</p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p><b>Categoria Utente:</b> {{getDescrTipo()}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="['PRIV'].indexOf(userType.id_tipo) > -1">
+                                                    <div class="col-md-6">
+                                                        <p><b>Sesso:</b> {{userType.sesso}}</p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p><b>Data di nascita:</b> {{userType.data_nascita | date: "yyyy-MM-dd"}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="['PRIV'].indexOf(userType.id_tipo) > -1">
+                                                    <div class="col-md-6 ">
+                                                        <p><b>Comune di nascita:</b> {{userType.comune_nascita}}</p>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <p><b>Codisce fiscale:</b> {{userType.codice_fiscale}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="['NPCF','NPPI', 'PUBA', 'AZIE'].indexOf(userType.id_tipo) > -1">
+                                                    <div class="col-md-6 ">
+                                                        <p><b>Partita IVA:</b> {{userType.partita_iva}}</p>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <p><b>PEC:</b> {{userType.pec}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                                    <div class="col-md-6 ">
+                                                        <p><b>Sesso:</b> {{userType.sesso}}</p>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                            <p><b>Data di nascita:</b> {{data_nascita | date: "yyyy-MM-dd"}}</p>
+                                                        </div>
+                                                </div>
+                                                <div class="row" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                                    <div class="col-md-6 ">
+                                                        <p><b>Comune di nascita:</b> {{userType.comune_nascita}}</p>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <p><b>Codisce fiscale:</b> {{userType.codice_fiscale}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                                    <div class="col-md-6 ">
+                                                        <p><b>Professione:</b> {{userType.prefessione}}</p>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <p><b>Partita IVA:</b> {{userType.partita_iva}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="['PROF'].indexOf(userType.id_tipo) > -1">
+                                                    <div class="col-md-6">
+                                                        <p><b>PEC:</b> {{userType.pec}}</p>
+                                                    </div>
+                                                </div>
+            
+                                                <h3 ng-show="['PRIV'].indexOf(userType.id_tipo) > -1">Residenza</h3>
+                                                <h3 ng-show="['PRIV'].indexOf(userType.id_tipo) > -1" class="">Sede</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p><b>Indirizzo:</b> {{userType.indirizzo}}</p>
+                                                        <br>
+                                                        <p><b>CAP:</b> {{userType.cap}}</p>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-6">
+                                                        <p><b>Comune:</b> {{userType.comune}}</p>
+                                                        <br>
+                                                        <p><b>Nazione:</b>  {{userType.nazione}}</p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p><b>Telefono:</b> {{userType.telefono}}</p>
+                                                    </div>
+                                                </div>
+                                                <h3 class="black-text">Motodo di pagamento</h3>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p><b>Paypal Account:</b> {{userType.account_paypal}}</p>
+                                                    </div>
+                                                </div>
+                                                <h3 class="black-text">Account</h3>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p><b>Username:</b> {{userType.nome_utente}}</p>
+                                                    </div>
+                                                    
+                                                    <div class="col-md-6">
+                                                        <p><b>Email:</b> {{userType.email}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col" style="margin: 30px 0;padding: 0px;">
+                                                <a class="btn btn-info text-center" style="color: #fff;" ng-click="editProfile();">Aggiorna Informazioni</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" ng-class="{active: pg == 'editPassword', show: pg == 'editPassword'}" ng-if="userId == user.id" id="editPassword">
+                            <div class="container">
+                                <form id="editPassword" name="editPassword">
+                                    <h3>Cambia la tua password</h3>
+                                    <div class="form-group">
+                                        <label for="passwd" class="bmd-label-floating">Password *</label>
+                                        <input type="password" class="form-control" id="passwd" name="passwd" ng-model="ledit.passwd" required />
+                                        <span class="b-error" ng-show="editPassword.passwd.$touched && ledit.passwd.$invalid">
+                                            Inserisci una password
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwd_conferma" class="bmd-label-floating">Conferma Password *</label>
+                                        <input type="password" class="form-control" id="passwd_conferma" name="passwd_conferma" ng-model="ledit.passwd_conferma" required />
+                                        <span class="b-error" ng-show="editPassword.passwd_conferma.$touched && ledit.passwd_conferma.$invalid">
+                                            Controlla la tua password!
+                                        </span>
+                                    </div>
+                                    <div class="col" style="margin: 30px 0;padding: 0px;">
+                                        <a class="btn btn-info text-center" style="color: #fff;" ng-class="{disabled: editPassword.passwd.$invali || editPassword.passwd_conferma.$invalid}" ng-click="editPasswd();">Aggiorna Password</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane" ng-class="{active: pg == 'privacy', show: pg == 'privacy'}" ng-if="userId == user.id" id="privacy">
+                            <div class="container">
+                                <form id="editPrivacy" name="editPrivacy">
+                                    <h3>Modifica le impostazioni di Privacy</h3>
+                                    <p>Le informazioni hanno il salvataggio automatico.</p>
+                                    <div class="row" style="margin: 30px 0;">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="data_nascita_vis">Data di nascita</label>
+                                                <select id="data_nascita_vis" class="form-control" name="data_nascita_vis" ng-model="userType.data_nascita_vis" ng-options="option.id as option.name for option in data.options"  ng-change="changePrivacy($event);"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="comune_nascita_vis">Comune di nascita</label>
+                                                <select id="comune_nascita_vis" class="form-control" name="comune_nascita_vis" ng-model="userType.comune_nascita_vis" ng-options="option.id as option.name for option in data.options"  ng-change="changePrivacy($event);"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="codice_fiscale_vis">Codice fiscale</label>
+                                                <select id="codice_fiscale_vis" class="form-control" name="codice_fiscale_vis" ng-model="userType.codice_fiscale_vis" ng-options="option.id as option.name for option in data.options"  ng-change="changePrivacy($event);"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email_vis">Email</label>
+                                                <select id="email_vis" class="form-control" name="email_vis" ng-model="userType.email_vis" ng-options="option.id as option.name for option in data.options"  ng-change="changePrivacy($event);"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="comune_vis">Indirizzo di residenza</label>
+                                                <select id="comune_vis" class="form-control" name="comune_vis" ng-model="userType.comune_vis" ng-options="option.id as option.name for option in data.options"  ng-change="changePrivacy($event);"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="indirizzo_vis">Comune di residenza</label>
+                                                <select id="indirizzo_vis" class="form-control" name="indirizzo_vis" ng-model="userType.indirizzo_vis" ng-options="option.id as option.name for option in data.options"  ng-change="changePrivacy($event);"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="telefono_vis">Telefono</label>
+                                                <select id="telefono_vis" class="form-control" name="telefono_vis" ng-model="userType.telefono_vis" ng-options="option.id as option.name for option in data.options"  ng-change="changePrivacy($event);"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="partita_iva_vis">Pasrtita Iva</label>
+                                                <select id="partita_iva_vis" class="form-control" name="partita_iva_vis" ng-model="userType.partita_iva_vis" ng-options="option.id as option.name for option in data.options"  ng-change="changePrivacy($event);"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane" ng-class="{active: pg == 'closeAccount', show: pg == 'closeAccount'}" ng-if="userId == user.id" id="closeAccount">
+                            <p>close account</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
