@@ -57,58 +57,13 @@ class Gaia{
 	
 	private static $engine_1_, $engine_2_;
 	
-	
-
-	public static function databaseConnection(){
-
-		switch(self::$ini['database_connection_default']){
-			case self::$ini['connections']['sqlite']['driver']:
-				
-				try{
-					self::$instance = new \PDO("sqlite:".self::$ini['connections']['sqlite']['database']);
-					self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-				} catch(PDOException $e) {
-					echo 'ERROR: ' . $e->getMessage();
-				}
-				self::$prfx = self::$ini['connections']['sqlite']['prefix'];
-				
-				break;
-			case self::$ini['connections']['mysql']['driver']:
-				
-				try{
-					self::$instance = new \PDO("mysql:host=".self::$ini['connections']['mysql']['host'].";dbname=".self::$ini['connections']['mysql']['database'], self::$ini['connections']['mysql']['username'], self::$ini['connections']['mysql']['password'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '".self::$ini['connections']['mysql']['charset']."'"));
-					self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-				} catch(PDOException $e) {
-					echo 'ERROR: ' . $e->getMessage();
-				}
-				self::$prfx = self::$ini['connections']['mysql']['prefix'];
-				
-				break;
-			case self::$ini['connections']['mmsql']['driver']:
-				
-				try{
-					self::$instance = new \PDO("mssql:host=".self::$ini['connections']['mmsql']['host'].";dbname=".self::$ini['connections']['mmsql']['database'], self::$ini['connections']['mmsql']['username'], self::$ini['connections']['mmsql']['password'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '".self::$ini['connections']['mmsql']['charset']."'"));
-					self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-				} catch(PDOException $e) {
-					echo 'ERROR: ' . $e->getMessage();
-				}
-				self::$prfx = self::$ini['connections']['mmsql']['prefix'];
-				
-				break;
-			default:
-				echo "<alert>No database selected 404</alert>";
-				break;
-		}
-		
-	}
-
 
 	public function __construct(){
 		
 		if(!isset($_SESSION)) session_start();
 
-        self::$ini = require_once(getcwd().DIRECTORY_SEPARATOR.'core/Class.ini.php');
+		self::$ini = require_once(getcwd().DIRECTORY_SEPARATOR.'core/Class.ini.php');
+		
 
         @date_default_timezone_set(self::$ini['date_default_timezone_set']);
 		setlocale(LC_TIME, self::$ini['set_local_lc_time']);
@@ -177,8 +132,56 @@ class Gaia{
         }
 		
 		SystemClass::queue(1);
+
+		Gaia::databaseConnection();
 		
 	}
+
+	
+	public static function databaseConnection(){
+
+		switch(self::$ini['database_connection_default']){
+			case self::$ini['connections']['sqlite']['driver']:
+				
+				try{
+					self::$instance = new \PDO("sqlite:".self::$ini['connections']['sqlite']['database']);
+					self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+				} catch(PDOException $e) {
+					echo 'ERROR: ' . $e->getMessage();
+				}
+				self::$prfx = self::$ini['connections']['sqlite']['prefix'];
+				
+				break;
+			case self::$ini['connections']['mysql']['driver']:
+				
+				try{
+					self::$instance = new \PDO("mysql:host=".self::$ini['connections']['mysql']['host'].";dbname=".self::$ini['connections']['mysql']['database'], self::$ini['connections']['mysql']['username'], self::$ini['connections']['mysql']['password'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '".self::$ini['connections']['mysql']['charset']."'"));
+					self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+				} catch(PDOException $e) {
+					echo 'ERROR: ' . $e->getMessage();
+				}
+				self::$prfx = self::$ini['connections']['mysql']['prefix'];
+				
+				break;
+			case self::$ini['connections']['mmsql']['driver']:
+				
+				try{
+					self::$instance = new \PDO("mssql:host=".self::$ini['connections']['mmsql']['host'].";dbname=".self::$ini['connections']['mmsql']['database'], self::$ini['connections']['mmsql']['username'], self::$ini['connections']['mmsql']['password'], array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES '".self::$ini['connections']['mmsql']['charset']."'"));
+					self::$instance->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+				} catch(PDOException $e) {
+					echo 'ERROR: ' . $e->getMessage();
+				}
+				self::$prfx = self::$ini['connections']['mmsql']['prefix'];
+				
+				break;
+			default:
+				echo "<alert>No database selected 404</alert>";
+				break;
+		}
+		
+	}
+
 
 	public static function migration_(){
 		self::databaseConnection();
@@ -364,5 +367,5 @@ class Config{
 }
 
 
-Gaia::databaseConnection();
+
 new Gaia();

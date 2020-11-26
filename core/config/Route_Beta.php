@@ -57,6 +57,7 @@ class Route_Beta extends Gaia{
         $CountSegment = count(self::CountSegments());
         $controller_file = ucfirst($controller_file);
         
+        if($controller_file === "Gaia") $controller_file = "Index";
 		if($controller_file != NULL){
 
             // Show page controller class
@@ -74,7 +75,7 @@ class Route_Beta extends Gaia{
             // Show the function in controller class
             if($CountSegment <= 1){ // if segment count is minor of 1
                 $start_function = $start_function;
-                $c->Index['function0'] = $start_function;
+                @$c->Index['function0'] = $start_function;
             }else{
 
                 // Show last segment number
@@ -105,6 +106,7 @@ class Route_Beta extends Gaia{
             
 
             $c->Index = (object) @$c->Index;
+            
 			return $c->{$start_function}();
                 
         }else{

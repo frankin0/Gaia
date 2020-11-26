@@ -138,9 +138,9 @@ return [
 		'mysql' => [
 			'driver' => 'mysql',
 			'host' => 'localhost',
-			'database' => '',
-			'username' => '',
-			'password' => '',
+			'database' => 'test',
+			'username' => 'root',
+			'password' => '123456',
 			'charset' => 'utf8',
 			'collation' => 'utf8mb4_unicode_ci',
 			'prefix' => 'Gaia_',

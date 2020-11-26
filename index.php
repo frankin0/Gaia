@@ -2,7 +2,7 @@
 
 namespace Gaia;
 
-use Gaia\core\Gaia;
+//use Gaia\core\Gaia;
 //use Gaia\core\config\Router;
 use Gaia\core\config\Route_Beta;
 use Gaia\core\config\Template;
