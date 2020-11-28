@@ -2,7 +2,7 @@
 
 namespace Gaia\core\controllers;
 
-use Gaia\core\config\Template;
+use Gaia\core\config\Requests;
 
 class Test{
  
@@ -11,4 +11,11 @@ class Test{
         echo $c;
     }  
 
+
+    public function post1(Requests $req){ 
+        $body = $req->getBody();
+
+        print_r($body);
+    
+    }
 }

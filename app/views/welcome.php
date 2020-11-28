@@ -30,7 +30,10 @@
 				</div>
 				<div class="col m6 m_color">
 					<div class="m_color">
-						<img src="app/assets/img/logo.png" width="200px" alt="espoweb" title="espoweb.it">
+						<a href="https://espoweb.it">
+							<img src="app/assets/img/logo.png" width="200px" alt="espoweb" title="espoweb.it">
+						</a>
+						
 					</div>
 				</div>
 			</div>

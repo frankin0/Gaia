@@ -1,7 +1,30 @@
-#RewriteEngine On
-#RewriteCond %{REQUEST_FILENAME} -s [OR]
-#RewriteCond %{REQUEST_FILENAME} -l [OR]
-#RewriteCond %{REQUEST_FILENAME} -d
-#RewriteRule ^.*$ - [NC, L]
+<IfModule mod_rewrite.c>
+	<IfModule mod_negotiation.c>
+		Options -MultiViews
+	</IfModule>
 
-#RewriteRule ^(.*) /index.html [NC, L]
+	RewriteEngine On
+	
+    ErrorDocument 404 http://www.sito.it/
+
+
+	# no one gets in here!
+	RedirectMatch 301 /core(.*) http://localhost/Gaia/$1
+	RedirectMatch 301 /libraries(.*) http://localhost/Gaia/$1
+	
+	RewriteBase /
+
+	# Handle Front Controller...
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+
+	RewriteCond %{REQUEST_SCHEME}://%{HTTP_HOST}%{REQUEST_URI}#$0 ^:?(.*)/(.*)#(\2)$
+
+	RewriteCond %{REQUEST_URI} !.*\.(ico|gif|jpg|jpeg|png|js|css)
+
+	#RewriteRule ^(.*)$ Gaia/index.php?route=$0&base_url=%1 [L,QSA]
+    RewriteRule ^(.*)$ Gaia/index.php?/$1 [L] 
+	
+	
+	
+</IfModule> 

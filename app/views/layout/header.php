@@ -6,6 +6,10 @@
 		<meta name="HandheldFriendly" content="True">
 		<meta name="apple-touch-fullscreen" content="yes">
 		<meta name="apple-mobile-web-app-capable" content="yes">
+		<link rel="icon" type="image/png" sizes="16x16" href="app/assets/img/favicon-16x16.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="app/assets/img/favicon-32x32.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="app/assets/img/favicon.png">
+
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700&subset=latin-ext" rel="stylesheet">
 
 		<link href="https://www.espoweb.it/material/stable/SoftMaterial.min.css" rel="stylesheet">

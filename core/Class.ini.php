@@ -24,7 +24,7 @@ return [
 	 *	FRAMEWORK VERSION
 	 */
 	
-	'version' => '2.5.6 Beta',
+	'version' => '2.8 Beta',
 	
 	/*
 	 *	CLASS PATH

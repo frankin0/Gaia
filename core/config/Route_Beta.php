@@ -4,6 +4,7 @@ namespace Gaia\core\config;
 
 use Gaia\core\Gaia;
 use Gaia\core\config\Internal_error;
+use Gaia\core\config\Requests;
 //use Gaia\core\controllers\Index;
 
 /*
@@ -31,6 +32,8 @@ class Route_Beta extends Gaia{
     
     public static $site_path, $_instance;
 
+    public static $_request;
+
     public static function Instance($site_path){
         return call_user_func( self::$_instance, $site_path);
     }
@@ -38,6 +41,7 @@ class Route_Beta extends Gaia{
 
     public function __construct($site_path){
         self::$site_path = self::RemoveSlash($site_path);
+        self::$_request = new Requests;
     }
 
     public function __toString(){
@@ -52,6 +56,7 @@ class Route_Beta extends Gaia{
         return $string;
     }
 
+    
     protected static function controller($controller_file){
 		$start_function = "Show"; //defult function in class controller = Show
         $CountSegment = count(self::CountSegments());
@@ -106,8 +111,93 @@ class Route_Beta extends Gaia{
             
 
             $c->Index = (object) @$c->Index;
+
+            //$contentType = trim(explode(";", self::$_request->getHeader()->getContentType())[0]);
+            $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
             
-			return $c->{$start_function}();
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                //Make sure that it is a POST request.
+                if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
+                    echo "Request method must be POST!";
+                    return ;
+                }
+
+                //Receive the RAW post data.
+                $content = trim(file_get_contents("php://input"));
+
+                //Attempt to decode the incoming RAW post data from JSON.
+                
+                switch ($contentType) {
+                    case "application/json":
+                        //Make sure that the content type of the POST request has been set to application/json
+                        if(strcasecmp($contentType, 'application/json') != 0){
+                            echo "Content type must be: application/json";
+                            return ;
+                        }
+                        
+                        //If json_decode failed, the JSON is invalid.
+                        if(!is_array($decoded)){
+                            echo "Received content contained invalid JSON!";
+                            return ;
+                        }
+                        
+                        //Process the JSON.
+                        $decoded = json_decode($content, true);
+                        break;
+                    case "application/xml":
+                        $decoded = (array)simplexml_load_string($content);
+                        break;
+                    case "application/x-www-form-urlencoded":
+                        parse_str($content, $decoded);
+                        break;
+                    default:
+                        $decoded = $content;
+                        break;
+                }
+
+            
+                self::$_request->setMethod(2);
+                self::$_request->setBody($decoded);                
+            }else if ($_SERVER['REQUEST_METHOD'] === "PUT" || $_SERVER['REQUEST_METHOD'] === "PATCH") {
+                $handle = fopen("php://input", "r");
+                $content = '';
+                while ($chunk = fread($handle, 1024)) $content .= $chunk;
+                fclose($handle);
+    
+                switch ($contentType) {
+                    case "application/json":
+                        //Make sure that the content type of the POST request has been set to application/json
+                        if(strcasecmp($contentType, 'application/json') != 0){
+                            echo "Content type must be: application/json";
+                            return ;
+                        }
+                        
+                        //If json_decode failed, the JSON is invalid.
+                        if(!is_array($decoded)){
+                            echo "Received content contained invalid JSON!";
+                            return ;
+                        }
+                        
+                        //Process the JSON.
+                        $decoded = json_decode($content, true);
+                        break;
+                    case "application/xml":
+                        $decoded = (array)simplexml_load_string($content);
+                        break;
+                    case "application/x-www-form-urlencoded":
+                        parse_str($content, $decoded);
+                        break;
+                    default:
+                        $decoded = $content;
+                        break;
+                }
+            
+            }else if($_SERVER['REQUEST_METHOD'] === "GET"){
+                #self::$_request->setMethod(1);
+            }
+            
+			return $c->{$start_function}(self::$_request);
                 
         }else{
             //Show error if controller file not exist

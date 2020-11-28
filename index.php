@@ -10,5 +10,5 @@ use Gaia\core\config\Internal_error;
 
 require_once __DIR__.'/core/contain.php';
 
-Route_Beta::Instance('/')->Start();
+Route_Beta::Instance('/Gaia')->Start();
 
